@@ -3,7 +3,7 @@
   "ecosystem": "SterlingChain / Sterling DEX",
   "program_id": "7v9sLrk92NNLLUfXLJw3o7MycZNvwsTK6kLWfWb8vcVA",
   "pool": "BbvR4zUAwZF8LmVFLXNpDy3CxuYcDwd5isoh7CZFAF5G",
-  "lp_mint": "DnepvMafJZzDtDcevrqbMUCmDqdNhBLjCTUu1xhR4HeL",
+  "lp_token_mint": "DnepvMafJZzDtDcevrqbMUCmDqdNhBLjCTUu1xhR4HeL",
   "config": "Htopqis52g8nGvvkpnG7Z7XZhgBpqtN9huqUyk6LH9gB",
   "BASE_VAULT": 1001385604.5442983,
   "QUOTE_VAULT": 1458324.24672327,

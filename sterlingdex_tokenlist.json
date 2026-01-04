@@ -1,0 +1,54 @@
+{
+  "name": "Sterlingdex Token List",
+  "tags": {
+    "lp-token": {
+      "name": "LP Token",
+      "description": "Liquidity Pool Tokens"
+    },
+    "dex": {
+      "name": "DEX",
+      "description": "Tokens associated with decentralized exchanges"
+    },
+    "sterling": {
+      "name": "SterlingChain",
+      "description": "Sovereign infrastructure via Sterling"
+    },
+    "cashback": {
+      "name": "Cashback",
+      "description": "Token with exit cashback policy"
+    }
+  },
+  "timestamp": "2026-01-03T00:00:00+00:00",
+  "version": {
+    "major": 1,
+    "minor": 0,
+    "patch": 0
+  },
+  "tokens": [
+    {
+      "chainId": 101,
+      "address": "DnepvMafJZzDtDcevrqbMUCmDqdNhBLjCTUu1xhR4HeL",
+      "symbol": "SDLP",
+      "name": "Sterlingdex LP Token",
+      "decimals": 6,
+      "logoURI": "https://white-persistent-silkworm-971.mypinata.cloud/ipfs/bafybeifh3p5nhvaici6xhlu2s5zuj3iol5vklwv5ujtjt6kajehb6falem",
+      "tags": [
+        "lp-token",
+        "dex",
+        "sterling",
+        "cashback"
+      ],
+      "extensions": {
+        "website": "https://sterlingdex.org",
+        "bridgeEndpoint": "http://localhost:1492/bridge",
+        "realPegUSD": true,
+        "cashbackBacked": true,
+        "sovereignControlled": true,
+        "treasuryUSD": 174000,
+        "origin": "SterlingChain",
+        "poolAddress": "BbvR4zUAwZF8LmVFLXNpDy3CxuYcDwd5isoh7CZFAF5G",
+        "instagram": "@Label92saintgobain"
+      }
+    }
+  ]
+}
