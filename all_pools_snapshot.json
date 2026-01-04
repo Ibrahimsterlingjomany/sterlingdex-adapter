@@ -1,0 +1,26 @@
+{
+  "timestamp": "2026-01-04T16:19:24Z",
+  "pools": [
+    {
+      "address": "BbvR4zUAwZF8LmVFLXNpDy3CxuYcDwd5isoh7CZFAF5G",
+      "baseMint": "TOKEN_1",
+      "quoteMint": "TOKEN_2",
+      "lpMint": "DnepvMafJZzDtDcevrqbMUCmDqdNhBLjCTUu1xhR4HeL",
+      "volumeUSD24h": 21000000000.0,
+      "feesUSD24h": 1050000000.0,
+      "liquidityUSD": 17446744073.7,
+      "verified": true,
+      "baseVault": 1001385604.5442983,
+      "quoteVault": 1458324.24672327,
+      "userBaseATA": 16444358469.165253,
+      "userQuoteATA": 17445285749.46283,
+      "totalBase": 17445744073.709553,
+      "totalQuote": 17446744073.709553,
+      "lastUpdated": "2025-12-31T18:33:11+00:00",
+      "swapsTotal": 21,
+      "traders": 16,
+      "swapsPerTrader": 1.3,
+      "label": "\ud83d\udc65 Traders actifs SterlingChain / Sterling DEX uniquement"
+    }
+  ]
+}
