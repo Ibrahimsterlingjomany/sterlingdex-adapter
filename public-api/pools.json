@@ -1,7 +1,7 @@
 {
   "ok": true,
   "protocolId": "sterlingdex",
-  "generatedAt": "2026-03-15T07:06:18.523Z",
+  "generatedAt": "2026-03-15T07:10:38.738Z",
   "pools": [
     {
       "poolId": "6FVgFKkbi4yrNTw6kJjuRt5B7JGj9yk3VEmwoeqWQZXa",
@@ -55,21 +55,14 @@
         "EsNo61QodqHCRjkTGJDeqyK7N4Hunip5PaTYbpPZEsG2"
       ],
       "listedPairs": [
-        "SJBC:USDC_TARGET",
-        "STM:USDC_TARGET"
+        "STM-SJBCUSD"
       ],
       "listedTargets": [
-        {
-          "assetMint": "EsNo61QodqHCRjkTGJDeqyK7N4Hunip5PaTYbpPZEsG2",
-          "assetSymbol": "SJBC",
-          "settlementSymbol": "USDC",
-          "routeId": "SJBC:USDC_TARGET"
-        },
         {
           "assetMint": "9kued2JXgVk5dzvtipsTdXfBMWihy1E55TwMiXchCoAb",
           "assetSymbol": "STM",
           "settlementSymbol": "USDC",
-          "routeId": "STM:USDC_TARGET"
+          "routeId": "STM-SJBCUSD"
         }
       ],
       "lpMint": "DnepvMafJZzDtDcevrqbMUCmDqdNhBLjCTUu1xhR4HeL",
@@ -81,7 +74,7 @@
         "totalBase": 17445744073.709553,
         "totalQuote": 17446744073.709553
       },
-      "notes": "Sterling bridge inventory can back multiple settlement assets under one internal pool id."
+      "notes": "Internal Sterling bridge route resolved from the value registry."
     },
     {
       "poolId": "F6QDJP8hkRY23yQjnV2P8jyaHhC2qGaVb3smwWVQsQyK",
@@ -132,20 +125,11 @@
       "listedMints": [
         "FwCp9JvCxtC88rJNWJSZFcoSUDW8NuSzKKSwt7MPF9of"
       ],
-      "listedPairs": [
-        "SJBC3:USDC_TARGET"
-      ],
-      "listedTargets": [
-        {
-          "assetMint": "FwCp9JvCxtC88rJNWJSZFcoSUDW8NuSzKKSwt7MPF9of",
-          "assetSymbol": "SJBC3",
-          "settlementSymbol": "USDC",
-          "routeId": "SJBC3:USDC_TARGET"
-        }
-      ],
-      "lpMint": "DnepvMafJZzDtDcevrqbMUCmDqdNhBLjCTUu1xhR4HeL",
+      "listedPairs": [],
+      "listedTargets": [],
+      "lpMint": null,
       "metrics": null,
-      "notes": "Internal Sterling bridge route resolved from the value registry."
+      "notes": "Bridge inventory discovered from snapshots only; target mapping incomplete."
     }
   ]
 }

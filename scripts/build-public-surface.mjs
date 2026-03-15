@@ -39,33 +39,42 @@ const tokenMap = new Map(
 const registryMints = valueRegistry.mints || {};
 const hardPoolRows = hardPools.pools || [];
 
-const pairs = Object.entries(registryMints).map(([mint, row]) => {
-  const token = tokenMap.get(mint) || {};
-  const target = String(row.target || "USDC").toUpperCase();
-  const symbol = String(row.symbol || token.symbol || mint.slice(0, 6)).toUpperCase();
-  const targetMint = targetMintFromSymbol(target);
-  return {
-    pairId: `${symbol}:${target}_TARGET`,
+const sjbcMint = "EsNo61QodqHCRjkTGJDeqyK7N4Hunip5PaTYbpPZEsG2";
+const stmMint = "9kued2JXgVk5dzvtipsTdXfBMWihy1E55TwMiXchCoAb";
+const sjbcRow = registryMints[sjbcMint] || null;
+const stmRow = registryMints[stmMint] || null;
+const sjbcToken = tokenMap.get(sjbcMint) || {};
+const stmToken = tokenMap.get(stmMint) || {};
+
+const pairs = [];
+
+if (sjbcRow && stmRow && sjbcRow.pool_id && sjbcRow.pool_id === stmRow.pool_id) {
+  const target = String(stmRow.target || sjbcRow.target || "USDC").toUpperCase();
+  pairs.push({
+    pairId: "STM-SJBCUSD",
     protocolId: "sterlingdex",
     protocolName: "SterlingDEX",
-    surfaceType: "BRIDGE_TARGET",
+    surfaceType: "STERLING_COMPAT_PAIR",
     isDexPair: false,
     programId: PROGRAM_ID,
-    poolId: row.pool_id,
-    configPda: row.pda || CONFIG_PDA,
-    authority: row.authority || AUTHORITY,
-    baseMint: mint,
-    baseSymbol: row.symbol || token.symbol || mint.slice(0, 6),
-    baseName: row.name || token.name || mint,
-    baseLogoURI: row.logo_uri || token.logoURI || null,
-    metadataURI: row.metadata_uri || token.extensions?.metadata_uri || null,
-    settlementMint: targetMint,
+    poolId: stmRow.pool_id,
+    configPda: stmRow.pda || sjbcRow.pda || CONFIG_PDA,
+    authority: stmRow.authority || sjbcRow.authority || AUTHORITY,
+    baseMint: stmMint,
+    baseSymbol: stmRow.symbol || stmToken.symbol || "STM",
+    baseName: stmRow.name || stmToken.name || "Sterling Mint",
+    baseLogoURI: stmRow.logo_uri || stmToken.logoURI || null,
+    quoteMint: sjbcMint,
+    quoteSymbol: sjbcRow.symbol || sjbcToken.symbol || "SJBC",
+    quoteName: sjbcRow.name || sjbcToken.name || "SJBC USD",
+    quoteLogoURI: sjbcRow.logo_uri || sjbcToken.logoURI || null,
+    settlementMint: targetMintFromSymbol(target),
     settlementSymbol: target,
     target,
-    strategy: row.strategy || null,
-    valueUsd: row.value_usd ?? null,
-    lpMint: token.extensions?.lp_mint || null,
-    externalUrl: token.extensions?.external_url || null,
+    strategy: stmRow.strategy || sjbcRow.strategy || null,
+    valueUsd: stmRow.value_usd ?? sjbcRow.value_usd ?? null,
+    lpMint: stmToken.extensions?.lp_mint || sjbcToken.extensions?.lp_mint || null,
+    metadataURI: stmRow.metadata_uri || stmToken.extensions?.metadata_uri || null,
     routing: {
       mode: "bridge_target",
       quotePath: "/quote",
@@ -73,9 +82,9 @@ const pairs = Object.entries(registryMints).map(([mint, row]) => {
       statusPath: "/status",
     },
     notes:
-      "Bridge-backed settlement target published for compatibility. This is not advertised as a public AMM pair.",
-  };
-});
+      "Compatibility pair declared by Sterling as STM / SJBC USD. Settlement target remains bridge-backed and USDC-oriented.",
+  });
+}
 
 const pairMapByPool = new Map();
 for (const pair of pairs) {
