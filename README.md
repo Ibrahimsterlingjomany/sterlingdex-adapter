@@ -30,6 +30,8 @@ settlement targets, not public AMM pairs.
 
 ```bash
 cd sterlingdex-adapter
+export STERLINGDEX_PUBLIC_BASE_URL=http://127.0.0.1:8788
+export STERLING_PUBLIC_QUOTE_UPSTREAM_URL=http://127.0.0.1:8000/dex/quote
 npm run build:surface
 npm start
 ```
@@ -46,6 +48,11 @@ Default local URL:
 
 If the two upstream variables are not configured, `POST /quote` and `POST /swap`
 return a clear `501` response instead of a fake quote.
+
+Build order matters: the generated `public-api/status.json` and `openapi.json`
+read the public env at build time. In production, the bundled `systemd`
+service runs `npm run build:surface` before `node server.mjs` so the published
+surface stays aligned with the configured public URL and quote wiring.
 
 ## Source of truth
 

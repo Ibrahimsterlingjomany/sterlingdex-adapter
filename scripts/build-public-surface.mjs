@@ -12,6 +12,9 @@ const CONFIG_PDA = "Htopqis52g8nGvvkpnG7Z7XZhgBpqtN9huqUyk6LH9gB";
 const AUTHORITY = "CMqD45Kq5oukPvaMDhzav5RxJqZb1xME1MmV71CzCeTw";
 const USDC_MINT = "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v";
 const USDT_MINT = "Es9vMFrzaCERmJfrF4H2FYD4KCoNkY11McCe8BenwNYB";
+const publicBaseUrl = process.env.STERLINGDEX_PUBLIC_BASE_URL || null;
+const hasQuoteUpstream = Boolean(process.env.STERLING_PUBLIC_QUOTE_UPSTREAM_URL);
+const hasSwapUpstream = Boolean(process.env.STERLING_PUBLIC_SWAP_UPSTREAM_URL);
 
 function readJson(relPath) {
   return JSON.parse(readFileSync(path.join(rootDir, relPath), "utf8"));
@@ -136,7 +139,7 @@ const status = {
   protocolName: "SterlingDEX",
   ecosystem: "SterlingChain",
   generatedAt: new Date().toISOString(),
-  publicBaseUrl: process.env.STERLINGDEX_PUBLIC_BASE_URL || null,
+  publicBaseUrl,
   programId: PROGRAM_ID,
   configPda: CONFIG_PDA,
   authority: AUTHORITY,
@@ -144,8 +147,8 @@ const status = {
     tokenlist: true,
     pools: true,
     pairs: true,
-    quote: false,
-    swap: false,
+    quote: hasQuoteUpstream,
+    swap: hasSwapUpstream,
   },
   endpoints: {
     health: "/health",
@@ -161,10 +164,12 @@ const status = {
     "Protocol identity, program id and config pda",
     "Settlement bridge registry surface",
     "Bridge target registry surface",
+    ...(hasQuoteUpstream ? ["Public quote endpoint wired"] : []),
+    ...(hasSwapUpstream ? ["Public swap endpoint wired"] : []),
   ],
   remainingBlockers: [
-    "No public HTTPS quote endpoint wired yet",
-    "No public HTTPS swap endpoint wired yet",
+    ...(!hasQuoteUpstream ? ["No public HTTPS quote endpoint wired yet"] : []),
+    ...(!hasSwapUpstream ? ["No public HTTPS swap endpoint wired yet"] : []),
     "No external indexer-specific adapter published yet",
     "DexScreener/Jupiter still need public tradable routing and indexable liquidity",
   ],
@@ -179,7 +184,7 @@ const openapi = {
   },
   servers: [
     {
-      url: process.env.STERLINGDEX_PUBLIC_BASE_URL || "https://your-public-sterlingdex-domain.example",
+      url: publicBaseUrl || "https://your-public-sterlingdex-domain.example",
     },
   ],
   paths: {

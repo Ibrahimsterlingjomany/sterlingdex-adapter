@@ -3,8 +3,8 @@
   "protocolId": "sterlingdex",
   "protocolName": "SterlingDEX",
   "ecosystem": "SterlingChain",
-  "generatedAt": "2026-03-15T07:27:01.397Z",
-  "publicBaseUrl": null,
+  "generatedAt": "2026-03-15T08:24:25.707Z",
+  "publicBaseUrl": "http://127.0.0.1:8788",
   "programId": "7v9sLrk92NNLLUfXLJw3o7MycZNvwsTK6kLWfWb8vcVA",
   "configPda": "Htopqis52g8nGvvkpnG7Z7XZhgBpqtN9huqUyk6LH9gB",
   "authority": "CMqD45Kq5oukPvaMDhzav5RxJqZb1xME1MmV71CzCeTw",
@@ -12,7 +12,7 @@
     "tokenlist": true,
     "pools": true,
     "pairs": true,
-    "quote": false,
+    "quote": true,
     "swap": false
   },
   "endpoints": {
@@ -28,10 +28,10 @@
     "Canonical token metadata for SJBC and STM",
     "Protocol identity, program id and config pda",
     "Settlement bridge registry surface",
-    "Bridge target registry surface"
+    "Bridge target registry surface",
+    "Public quote endpoint wired"
   ],
   "remainingBlockers": [
-    "No public HTTPS quote endpoint wired yet",
     "No public HTTPS swap endpoint wired yet",
     "No external indexer-specific adapter published yet",
     "DexScreener/Jupiter still need public tradable routing and indexable liquidity"
