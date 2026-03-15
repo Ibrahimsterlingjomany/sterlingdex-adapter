@@ -11,6 +11,16 @@
     }
   ],
   "paths": {
+    "/health": {
+      "get": {
+        "summary": "Public surface health",
+        "responses": {
+          "200": {
+            "description": "Health payload"
+          }
+        }
+      }
+    },
     "/status": {
       "get": {
         "summary": "Protocol status",

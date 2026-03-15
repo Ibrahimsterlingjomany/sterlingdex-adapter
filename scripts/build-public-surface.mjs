@@ -148,6 +148,7 @@ const status = {
     swap: false,
   },
   endpoints: {
+    health: "/health",
     status: "/status",
     tokenlist: "/tokenlist",
     pools: "/pools",
@@ -182,6 +183,14 @@ const openapi = {
     },
   ],
   paths: {
+    "/health": {
+      get: {
+        summary: "Public surface health",
+        responses: {
+          "200": { description: "Health payload" },
+        },
+      },
+    },
     "/status": {
       get: {
         summary: "Protocol status",

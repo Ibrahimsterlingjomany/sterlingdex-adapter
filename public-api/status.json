@@ -3,7 +3,7 @@
   "protocolId": "sterlingdex",
   "protocolName": "SterlingDEX",
   "ecosystem": "SterlingChain",
-  "generatedAt": "2026-03-15T07:10:38.738Z",
+  "generatedAt": "2026-03-15T07:27:01.397Z",
   "publicBaseUrl": null,
   "programId": "7v9sLrk92NNLLUfXLJw3o7MycZNvwsTK6kLWfWb8vcVA",
   "configPda": "Htopqis52g8nGvvkpnG7Z7XZhgBpqtN9huqUyk6LH9gB",
@@ -16,6 +16,7 @@
     "swap": false
   },
   "endpoints": {
+    "health": "/health",
     "status": "/status",
     "tokenlist": "/tokenlist",
     "pools": "/pools",

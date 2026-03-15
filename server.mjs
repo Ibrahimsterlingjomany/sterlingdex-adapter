@@ -66,8 +66,18 @@ const server = createServer(async (req, res) => {
     sendJson(res, 200, {
       ok: true,
       protocol: "sterlingdex",
-      endpoints: ["/status", "/tokenlist", "/pools", "/pairs", "/quote", "/swap", "/openapi.json"],
+      endpoints: ["/health", "/status", "/tokenlist", "/pools", "/pairs", "/quote", "/swap", "/openapi.json"],
       note: "Minimal public SterlingDEX protocol surface.",
+    });
+    return;
+  }
+
+  if (req.method === "GET" && pathname === "/health") {
+    sendJson(res, 200, {
+      ok: true,
+      service: "sterlingdex-public-surface",
+      protocol: "sterlingdex",
+      healthy: true,
     });
     return;
   }
@@ -160,7 +170,7 @@ server.listen(port, host, () => {
       host,
       port,
       hasStatus,
-      endpoints: ["/status", "/tokenlist", "/pools", "/pairs", "/quote", "/swap", "/openapi.json"],
+      endpoints: ["/health", "/status", "/tokenlist", "/pools", "/pairs", "/quote", "/swap", "/openapi.json"],
     }),
   );
 });

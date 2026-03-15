@@ -15,6 +15,7 @@ It does **not** pretend that routing is already public if it is not wired yet.
 ## Endpoints
 
 - `GET /status`
+- `GET /health`
 - `GET /tokenlist`
 - `GET /pools`
 - `GET /pairs`
