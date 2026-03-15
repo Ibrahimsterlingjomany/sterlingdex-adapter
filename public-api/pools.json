@@ -1,41 +1,49 @@
 {
   "ok": true,
   "protocolId": "sterlingdex",
-  "generatedAt": "2026-03-15T06:49:47.067Z",
+  "generatedAt": "2026-03-15T07:06:18.523Z",
   "pools": [
     {
       "poolId": "6FVgFKkbi4yrNTw6kJjuRt5B7JGj9yk3VEmwoeqWQZXa",
       "programId": "7v9sLrk92NNLLUfXLJw3o7MycZNvwsTK6kLWfWb8vcVA",
       "configPda": "Htopqis52g8nGvvkpnG7Z7XZhgBpqtN9huqUyk6LH9gB",
       "authority": "CMqD45Kq5oukPvaMDhzav5RxJqZb1xME1MmV71CzCeTw",
+      "surfaceType": "SETTLEMENT_BRIDGE",
+      "isPublicDexPool": false,
       "sources": [
         "REPORT_SNAPSHOT"
       ],
       "listedMints": [],
       "listedPairs": [],
+      "listedTargets": [],
       "lpMint": null,
       "metrics": null,
-      "notes": "Pool discovered from snapshots only; pair mapping incomplete."
+      "notes": "Bridge inventory discovered from snapshots only; target mapping incomplete."
     },
     {
       "poolId": "8NvJEAAaPzB46hcX1fcLLVmea2htNMrNSViQk24bZ7P5",
       "programId": "7v9sLrk92NNLLUfXLJw3o7MycZNvwsTK6kLWfWb8vcVA",
       "configPda": "Htopqis52g8nGvvkpnG7Z7XZhgBpqtN9huqUyk6LH9gB",
       "authority": "CMqD45Kq5oukPvaMDhzav5RxJqZb1xME1MmV71CzCeTw",
+      "surfaceType": "SETTLEMENT_BRIDGE",
+      "isPublicDexPool": false,
       "sources": [
         "REPORT_SNAPSHOT"
       ],
       "listedMints": [],
       "listedPairs": [],
+      "listedTargets": [],
       "lpMint": null,
       "metrics": null,
-      "notes": "Pool discovered from snapshots only; pair mapping incomplete."
+      "notes": "Bridge inventory discovered from snapshots only; target mapping incomplete."
     },
     {
       "poolId": "BbvR4zUAwZF8LmVFLXNpDy3CxuYcDwd5isoh7CZFAF5G",
       "programId": "7v9sLrk92NNLLUfXLJw3o7MycZNvwsTK6kLWfWb8vcVA",
       "configPda": "Htopqis52g8nGvvkpnG7Z7XZhgBpqtN9huqUyk6LH9gB",
       "authority": "CMqD45Kq5oukPvaMDhzav5RxJqZb1xME1MmV71CzCeTw",
+      "surfaceType": "SETTLEMENT_BRIDGE",
+      "isPublicDexPool": false,
       "sources": [
         "REPORT_SNAPSHOT",
         "TOKENLIST",
@@ -47,8 +55,22 @@
         "EsNo61QodqHCRjkTGJDeqyK7N4Hunip5PaTYbpPZEsG2"
       ],
       "listedPairs": [
-        "SJBC-USDC",
-        "STM-USDC"
+        "SJBC:USDC_TARGET",
+        "STM:USDC_TARGET"
+      ],
+      "listedTargets": [
+        {
+          "assetMint": "EsNo61QodqHCRjkTGJDeqyK7N4Hunip5PaTYbpPZEsG2",
+          "assetSymbol": "SJBC",
+          "settlementSymbol": "USDC",
+          "routeId": "SJBC:USDC_TARGET"
+        },
+        {
+          "assetMint": "9kued2JXgVk5dzvtipsTdXfBMWihy1E55TwMiXchCoAb",
+          "assetSymbol": "STM",
+          "settlementSymbol": "USDC",
+          "routeId": "STM:USDC_TARGET"
+        }
       ],
       "lpMint": "DnepvMafJZzDtDcevrqbMUCmDqdNhBLjCTUu1xhR4HeL",
       "metrics": {
@@ -59,41 +81,49 @@
         "totalBase": 17445744073.709553,
         "totalQuote": 17446744073.709553
       },
-      "notes": "Sterling private pool can back multiple settlement assets under one pool id."
+      "notes": "Sterling bridge inventory can back multiple settlement assets under one internal pool id."
     },
     {
       "poolId": "F6QDJP8hkRY23yQjnV2P8jyaHhC2qGaVb3smwWVQsQyK",
       "programId": "7v9sLrk92NNLLUfXLJw3o7MycZNvwsTK6kLWfWb8vcVA",
       "configPda": "Htopqis52g8nGvvkpnG7Z7XZhgBpqtN9huqUyk6LH9gB",
       "authority": "CMqD45Kq5oukPvaMDhzav5RxJqZb1xME1MmV71CzCeTw",
+      "surfaceType": "SETTLEMENT_BRIDGE",
+      "isPublicDexPool": false,
       "sources": [
         "REPORT_SNAPSHOT"
       ],
       "listedMints": [],
       "listedPairs": [],
+      "listedTargets": [],
       "lpMint": null,
       "metrics": null,
-      "notes": "Pool discovered from snapshots only; pair mapping incomplete."
+      "notes": "Bridge inventory discovered from snapshots only; target mapping incomplete."
     },
     {
       "poolId": "GueLwVCqG18cneMNXCBhxBAabgVQqZYGxkT7UAWPyoCs",
       "programId": "7v9sLrk92NNLLUfXLJw3o7MycZNvwsTK6kLWfWb8vcVA",
       "configPda": "Htopqis52g8nGvvkpnG7Z7XZhgBpqtN9huqUyk6LH9gB",
       "authority": "CMqD45Kq5oukPvaMDhzav5RxJqZb1xME1MmV71CzCeTw",
+      "surfaceType": "SETTLEMENT_BRIDGE",
+      "isPublicDexPool": false,
       "sources": [
         "REPORT_SNAPSHOT"
       ],
       "listedMints": [],
       "listedPairs": [],
+      "listedTargets": [],
       "lpMint": null,
       "metrics": null,
-      "notes": "Pool discovered from snapshots only; pair mapping incomplete."
+      "notes": "Bridge inventory discovered from snapshots only; target mapping incomplete."
     },
     {
       "poolId": "Hj4dwRe2ZbmPasT7412LdhcTANEsXkjuG2eh4uUgUQNq",
       "programId": "7v9sLrk92NNLLUfXLJw3o7MycZNvwsTK6kLWfWb8vcVA",
       "configPda": "Htopqis52g8nGvvkpnG7Z7XZhgBpqtN9huqUyk6LH9gB",
       "authority": "CMqD45Kq5oukPvaMDhzav5RxJqZb1xME1MmV71CzCeTw",
+      "surfaceType": "SETTLEMENT_BRIDGE",
+      "isPublicDexPool": false,
       "sources": [
         "REPORT_SNAPSHOT",
         "TOKENLIST",
@@ -103,11 +133,19 @@
         "FwCp9JvCxtC88rJNWJSZFcoSUDW8NuSzKKSwt7MPF9of"
       ],
       "listedPairs": [
-        "SJBC3-USDC"
+        "SJBC3:USDC_TARGET"
+      ],
+      "listedTargets": [
+        {
+          "assetMint": "FwCp9JvCxtC88rJNWJSZFcoSUDW8NuSzKKSwt7MPF9of",
+          "assetSymbol": "SJBC3",
+          "settlementSymbol": "USDC",
+          "routeId": "SJBC3:USDC_TARGET"
+        }
       ],
       "lpMint": "DnepvMafJZzDtDcevrqbMUCmDqdNhBLjCTUu1xhR4HeL",
       "metrics": null,
-      "notes": "Pool resolved from Sterling value registry."
+      "notes": "Internal Sterling bridge route resolved from the value registry."
     }
   ]
 }

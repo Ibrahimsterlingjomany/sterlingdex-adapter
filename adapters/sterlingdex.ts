@@ -11,7 +11,7 @@ const DEFAULT_POOL_SNAPSHOT_URL =
 export const SterlingDEX = {
   id: "sterlingdex",
   displayName: "SterlingDEX",
-  description: "SterlingDEX - sovereign AMM by Sterling Ibrahim Jomany on Solana",
+  description: "SterlingDEX - sovereign bridge-backed settlement protocol on Solana",
 
   // Program ID déployé
   programId: new PublicKey("7v9sLrk92NNLLUfXLJw3o7MycZNvwsTK6kLWfWb8vcVA"),

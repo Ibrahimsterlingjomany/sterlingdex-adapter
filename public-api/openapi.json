@@ -33,7 +33,7 @@
     },
     "/pools": {
       "get": {
-        "summary": "Pool registry",
+        "summary": "Settlement bridge registry",
         "responses": {
           "200": {
             "description": "Pool registry JSON"
@@ -43,7 +43,7 @@
     },
     "/pairs": {
       "get": {
-        "summary": "Pair registry",
+        "summary": "Bridge target registry compatibility surface",
         "responses": {
           "200": {
             "description": "Pair registry JSON"
@@ -53,7 +53,7 @@
     },
     "/quote": {
       "post": {
-        "summary": "Request a protocol quote",
+        "summary": "Request a bridge-backed Sterling quote",
         "requestBody": {
           "required": true,
           "content": {
@@ -61,13 +61,21 @@
               "schema": {
                 "type": "object",
                 "required": [
-                  "inputMint",
-                  "outputMint",
                   "amount"
                 ],
                 "properties": {
+                  "mint": {
+                    "type": "string"
+                  },
                   "inputMint": {
                     "type": "string"
+                  },
+                  "target": {
+                    "type": "string",
+                    "enum": [
+                      "USDC",
+                      "USDT"
+                    ]
                   },
                   "outputMint": {
                     "type": "string"
@@ -98,7 +106,7 @@
     },
     "/swap": {
       "post": {
-        "summary": "Request a protocol swap route",
+        "summary": "Request a Sterling bridge or settlement route",
         "requestBody": {
           "required": true,
           "content": {
@@ -106,14 +114,22 @@
               "schema": {
                 "type": "object",
                 "required": [
-                  "inputMint",
-                  "outputMint",
                   "amount",
                   "userPublicKey"
                 ],
                 "properties": {
+                  "mint": {
+                    "type": "string"
+                  },
                   "inputMint": {
                     "type": "string"
+                  },
+                  "target": {
+                    "type": "string",
+                    "enum": [
+                      "USDC",
+                      "USDT"
+                    ]
                   },
                   "outputMint": {
                     "type": "string"

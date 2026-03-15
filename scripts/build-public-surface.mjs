@@ -42,10 +42,14 @@ const hardPoolRows = hardPools.pools || [];
 const pairs = Object.entries(registryMints).map(([mint, row]) => {
   const token = tokenMap.get(mint) || {};
   const target = String(row.target || "USDC").toUpperCase();
+  const symbol = String(row.symbol || token.symbol || mint.slice(0, 6)).toUpperCase();
+  const targetMint = targetMintFromSymbol(target);
   return {
-    pairId: `${String(row.symbol || token.symbol || mint.slice(0, 6)).toUpperCase()}-${target}`,
+    pairId: `${symbol}:${target}_TARGET`,
     protocolId: "sterlingdex",
     protocolName: "SterlingDEX",
+    surfaceType: "BRIDGE_TARGET",
+    isDexPair: false,
     programId: PROGRAM_ID,
     poolId: row.pool_id,
     configPda: row.pda || CONFIG_PDA,
@@ -55,18 +59,21 @@ const pairs = Object.entries(registryMints).map(([mint, row]) => {
     baseName: row.name || token.name || mint,
     baseLogoURI: row.logo_uri || token.logoURI || null,
     metadataURI: row.metadata_uri || token.extensions?.metadata_uri || null,
-    quoteMint: targetMintFromSymbol(target),
-    quoteSymbol: target,
+    settlementMint: targetMint,
+    settlementSymbol: target,
     target,
     strategy: row.strategy || null,
     valueUsd: row.value_usd ?? null,
     lpMint: token.extensions?.lp_mint || null,
     externalUrl: token.extensions?.external_url || null,
     routing: {
+      mode: "bridge_target",
       quotePath: "/quote",
       swapPath: "/swap",
       statusPath: "/status",
     },
+    notes:
+      "Bridge-backed settlement target published for compatibility. This is not advertised as a public AMM pair.",
   };
 });
 
@@ -85,9 +92,17 @@ const pools = hardPoolRows.map((pool) => {
     programId: pool.program_id || PROGRAM_ID,
     configPda: pool.config_pda || CONFIG_PDA,
     authority: pool.authority || AUTHORITY,
+    surfaceType: "SETTLEMENT_BRIDGE",
+    isPublicDexPool: false,
     sources: pool.sources || [],
     listedMints: pool.mints || [],
     listedPairs: relatedPairs.map((pair) => pair.pairId),
+    listedTargets: relatedPairs.map((pair) => ({
+      assetMint: pair.baseMint,
+      assetSymbol: pair.baseSymbol,
+      settlementSymbol: pair.settlementSymbol,
+      routeId: pair.pairId,
+    })),
     lpMint: relatedPairs.find((pair) => pair.lpMint)?.lpMint || matchingLegacy?.lp_token_mint || null,
     metrics: matchingLegacy
       ? {
@@ -101,8 +116,8 @@ const pools = hardPoolRows.map((pool) => {
       : null,
     notes:
       relatedPairs.length > 1
-        ? "Sterling private pool can back multiple settlement assets under one pool id."
-        : (relatedPairs.length === 1 ? "Pool resolved from Sterling value registry." : "Pool discovered from snapshots only; pair mapping incomplete."),
+        ? "Sterling bridge inventory can back multiple settlement assets under one internal pool id."
+        : (relatedPairs.length === 1 ? "Internal Sterling bridge route resolved from the value registry." : "Bridge inventory discovered from snapshots only; target mapping incomplete."),
   };
 });
 
@@ -134,8 +149,8 @@ const status = {
   publishableNow: [
     "Canonical token metadata for SJBC and STM",
     "Protocol identity, program id and config pda",
-    "Pool registry surface",
-    "Pair registry surface",
+    "Settlement bridge registry surface",
+    "Bridge target registry surface",
   ],
   remainingBlockers: [
     "No public HTTPS quote endpoint wired yet",
@@ -176,7 +191,7 @@ const openapi = {
     },
     "/pools": {
       get: {
-        summary: "Pool registry",
+        summary: "Settlement bridge registry",
         responses: {
           "200": { description: "Pool registry JSON" },
         },
@@ -184,7 +199,7 @@ const openapi = {
     },
     "/pairs": {
       get: {
-        summary: "Pair registry",
+        summary: "Bridge target registry compatibility surface",
         responses: {
           "200": { description: "Pair registry JSON" },
         },
@@ -192,16 +207,18 @@ const openapi = {
     },
     "/quote": {
       post: {
-        summary: "Request a protocol quote",
+        summary: "Request a bridge-backed Sterling quote",
         requestBody: {
           required: true,
           content: {
             "application/json": {
               schema: {
                 type: "object",
-                required: ["inputMint", "outputMint", "amount"],
+                required: ["amount"],
                 properties: {
+                  mint: { type: "string" },
                   inputMint: { type: "string" },
+                  target: { type: "string", enum: ["USDC", "USDT"] },
                   outputMint: { type: "string" },
                   amount: { type: "string" },
                   slippageBps: { type: "number" },
@@ -219,16 +236,18 @@ const openapi = {
     },
     "/swap": {
       post: {
-        summary: "Request a protocol swap route",
+        summary: "Request a Sterling bridge or settlement route",
         requestBody: {
           required: true,
           content: {
             "application/json": {
               schema: {
                 type: "object",
-                required: ["inputMint", "outputMint", "amount", "userPublicKey"],
+                required: ["amount", "userPublicKey"],
                 properties: {
+                  mint: { type: "string" },
                   inputMint: { type: "string" },
+                  target: { type: "string", enum: ["USDC", "USDT"] },
                   outputMint: { type: "string" },
                   amount: { type: "string" },
                   userPublicKey: { type: "string" },

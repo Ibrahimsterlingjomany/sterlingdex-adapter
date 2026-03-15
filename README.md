@@ -5,8 +5,8 @@ Minimal public protocol surface for `SterlingDEX` on Solana.
 This repo is for the public protocol layer:
 
 - canonical token visibility
-- pool registry visibility
-- pair registry visibility
+- settlement bridge registry visibility
+- bridge target registry visibility
 - public protocol adapter
 - public API contract for future router integration
 
@@ -21,6 +21,9 @@ It does **not** pretend that routing is already public if it is not wired yet.
 - `POST /quote`
 - `POST /swap`
 - `GET /openapi.json`
+
+`/pairs` is kept as a compatibility route, but it describes bridge-backed
+settlement targets, not public AMM pairs.
 
 ## Local build
 

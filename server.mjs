@@ -106,8 +106,10 @@ const server = createServer(async (req, res) => {
       sendJson(res, 501, {
         ...notConfiguredPayload("quote"),
         request_schema: {
+          mint: "string?",
           inputMint: "string",
-          outputMint: "string",
+          target: "USDC|USDT?",
+          outputMint: "string?",
           amount: "string",
           slippageBps: "number?",
           quoteOnly: true,
@@ -129,8 +131,10 @@ const server = createServer(async (req, res) => {
       sendJson(res, 501, {
         ...notConfiguredPayload("swap"),
         request_schema: {
+          mint: "string?",
           inputMint: "string",
-          outputMint: "string",
+          target: "USDC|USDT?",
+          outputMint: "string?",
           amount: "string",
           userPublicKey: "string",
           slippageBps: "number?",

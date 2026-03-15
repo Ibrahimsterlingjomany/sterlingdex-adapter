@@ -1,12 +1,14 @@
 {
   "ok": true,
   "protocolId": "sterlingdex",
-  "generatedAt": "2026-03-15T06:49:47.067Z",
+  "generatedAt": "2026-03-15T07:06:18.523Z",
   "pairs": [
     {
-      "pairId": "SJBC-USDC",
+      "pairId": "SJBC:USDC_TARGET",
       "protocolId": "sterlingdex",
       "protocolName": "SterlingDEX",
+      "surfaceType": "BRIDGE_TARGET",
+      "isDexPair": false,
       "programId": "7v9sLrk92NNLLUfXLJw3o7MycZNvwsTK6kLWfWb8vcVA",
       "poolId": "BbvR4zUAwZF8LmVFLXNpDy3CxuYcDwd5isoh7CZFAF5G",
       "configPda": "Htopqis52g8nGvvkpnG7Z7XZhgBpqtN9huqUyk6LH9gB",
@@ -16,23 +18,27 @@
       "baseName": "SJBC USD",
       "baseLogoURI": "https://white-persistent-silkworm-971.mypinata.cloud/ipfs/bafybeiboqchb4cq2pcx3zez6cv7gilmzpjmli2iuavsjfffdzayk57lwie",
       "metadataURI": "https://white-persistent-silkworm-971.mypinata.cloud/ipfs/bafkreidlzlxs765cj4vqcd4j2vd55oxeebwmr4qbkloeh33i7qqnjjwdrq",
-      "quoteMint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
-      "quoteSymbol": "USDC",
+      "settlementMint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+      "settlementSymbol": "USDC",
       "target": "USDC",
       "strategy": "PRIVATE_POOL",
       "valueUsd": 1,
       "lpMint": "DnepvMafJZzDtDcevrqbMUCmDqdNhBLjCTUu1xhR4HeL",
       "externalUrl": "https://solscan.io/token/EsNo61QodqHCRjkTGJDeqyK7N4Hunip5PaTYbpPZEsG2",
       "routing": {
+        "mode": "bridge_target",
         "quotePath": "/quote",
         "swapPath": "/swap",
         "statusPath": "/status"
-      }
+      },
+      "notes": "Bridge-backed settlement target published for compatibility. This is not advertised as a public AMM pair."
     },
     {
-      "pairId": "STM-USDC",
+      "pairId": "STM:USDC_TARGET",
       "protocolId": "sterlingdex",
       "protocolName": "SterlingDEX",
+      "surfaceType": "BRIDGE_TARGET",
+      "isDexPair": false,
       "programId": "7v9sLrk92NNLLUfXLJw3o7MycZNvwsTK6kLWfWb8vcVA",
       "poolId": "BbvR4zUAwZF8LmVFLXNpDy3CxuYcDwd5isoh7CZFAF5G",
       "configPda": "Htopqis52g8nGvvkpnG7Z7XZhgBpqtN9huqUyk6LH9gB",
@@ -42,23 +48,27 @@
       "baseName": "Sterling Mint",
       "baseLogoURI": "https://white-persistent-silkworm-971.mypinata.cloud/ipfs/bafkreihkmmtbwboplaqkusxutvj6nvri7zbfnk476oz3gsk26dniyfbv2q",
       "metadataURI": "https://white-persistent-silkworm-971.mypinata.cloud/ipfs/bafkreigieiayj3zwzgfjvgcsrkagzykiqo3obe6o556v25mrsnwjyc5hkq",
-      "quoteMint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
-      "quoteSymbol": "USDC",
+      "settlementMint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+      "settlementSymbol": "USDC",
       "target": "USDC",
       "strategy": "PRIVATE_POOL",
       "valueUsd": 1,
       "lpMint": "DnepvMafJZzDtDcevrqbMUCmDqdNhBLjCTUu1xhR4HeL",
       "externalUrl": "https://solscan.io/token/9kued2JXgVk5dzvtipsTdXfBMWihy1E55TwMiXchCoAb",
       "routing": {
+        "mode": "bridge_target",
         "quotePath": "/quote",
         "swapPath": "/swap",
         "statusPath": "/status"
-      }
+      },
+      "notes": "Bridge-backed settlement target published for compatibility. This is not advertised as a public AMM pair."
     },
     {
-      "pairId": "SJBC3-USDC",
+      "pairId": "SJBC3:USDC_TARGET",
       "protocolId": "sterlingdex",
       "protocolName": "SterlingDEX",
+      "surfaceType": "BRIDGE_TARGET",
+      "isDexPair": false,
       "programId": "7v9sLrk92NNLLUfXLJw3o7MycZNvwsTK6kLWfWb8vcVA",
       "poolId": "Hj4dwRe2ZbmPasT7412LdhcTANEsXkjuG2eh4uUgUQNq",
       "configPda": "Htopqis52g8nGvvkpnG7Z7XZhgBpqtN9huqUyk6LH9gB",
@@ -68,18 +78,20 @@
       "baseName": "SJBC3",
       "baseLogoURI": "https://white-persistent-silkworm-971.mypinata.cloud/ipfs/bafkreibkmfoodrqlasm35owalyi5daqze6ex42cpj6nwwm7puq42ai5wam",
       "metadataURI": "https://white-persistent-silkworm-971.mypinata.cloud/ipfs/bafkreibkmfoodrqlasm35owalyi5daqze6ex42cpj6nwwm7puq42ai5wam",
-      "quoteMint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
-      "quoteSymbol": "USDC",
+      "settlementMint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+      "settlementSymbol": "USDC",
       "target": "USDC",
       "strategy": "PRIVATE_POOL",
       "valueUsd": 1,
       "lpMint": "DnepvMafJZzDtDcevrqbMUCmDqdNhBLjCTUu1xhR4HeL",
       "externalUrl": "https://solscan.io/token/FwCp9JvCxtC88rJNWJSZFcoSUDW8NuSzKKSwt7MPF9of",
       "routing": {
+        "mode": "bridge_target",
         "quotePath": "/quote",
         "swapPath": "/swap",
         "statusPath": "/status"
-      }
+      },
+      "notes": "Bridge-backed settlement target published for compatibility. This is not advertised as a public AMM pair."
     }
   ]
 }

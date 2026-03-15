@@ -3,7 +3,7 @@
   "protocolId": "sterlingdex",
   "protocolName": "SterlingDEX",
   "ecosystem": "SterlingChain",
-  "generatedAt": "2026-03-15T06:49:47.067Z",
+  "generatedAt": "2026-03-15T07:06:18.523Z",
   "publicBaseUrl": null,
   "programId": "7v9sLrk92NNLLUfXLJw3o7MycZNvwsTK6kLWfWb8vcVA",
   "configPda": "Htopqis52g8nGvvkpnG7Z7XZhgBpqtN9huqUyk6LH9gB",
@@ -26,8 +26,8 @@
   "publishableNow": [
     "Canonical token metadata for SJBC and STM",
     "Protocol identity, program id and config pda",
-    "Pool registry surface",
-    "Pair registry surface"
+    "Settlement bridge registry surface",
+    "Bridge target registry surface"
   ],
   "remainingBlockers": [
     "No public HTTPS quote endpoint wired yet",
