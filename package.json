@@ -1,0 +1,14 @@
+{
+  "name": "sterlingdex-adapter",
+  "version": "0.1.0",
+  "description": "Public protocol surface for SterlingDEX on Solana",
+  "private": false,
+  "type": "module",
+  "scripts": {
+    "build:surface": "node scripts/build-public-surface.mjs",
+    "start": "node server.mjs"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

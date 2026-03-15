@@ -27,6 +27,36 @@
   "tokens": [
     {
       "chainId": 101,
+      "address": "EsNo61QodqHCRjkTGJDeqyK7N4Hunip5PaTYbpPZEsG2",
+      "symbol": "SJBC",
+      "name": "SJBC USD",
+      "decimals": 9,
+      "logoURI": "https://white-persistent-silkworm-971.mypinata.cloud/ipfs/bafybeiboqchb4cq2pcx3zez6cv7gilmzpjmli2iuavsjfffdzayk57lwie",
+      "tags": [
+        "sterling"
+      ],
+      "extensions": {
+        "metadata_uri": "https://white-persistent-silkworm-971.mypinata.cloud/ipfs/bafkreidlzlxs765cj4vqcd4j2vd55oxeebwmr4qbkloeh33i7qqnjjwdrq",
+        "external_url": "https://solscan.io/token/EsNo61QodqHCRjkTGJDeqyK7N4Hunip5PaTYbpPZEsG2"
+      }
+    },
+    {
+      "chainId": 101,
+      "address": "9kued2JXgVk5dzvtipsTdXfBMWihy1E55TwMiXchCoAb",
+      "symbol": "STM",
+      "name": "Sterling Mint",
+      "decimals": 9,
+      "logoURI": "https://white-persistent-silkworm-971.mypinata.cloud/ipfs/bafkreihkmmtbwboplaqkusxutvj6nvri7zbfnk476oz3gsk26dniyfbv2q",
+      "tags": [
+        "sterling"
+      ],
+      "extensions": {
+        "metadata_uri": "https://white-persistent-silkworm-971.mypinata.cloud/ipfs/bafkreigieiayj3zwzgfjvgcsrkagzykiqo3obe6o556v25mrsnwjyc5hkq",
+        "external_url": "https://solscan.io/token/9kued2JXgVk5dzvtipsTdXfBMWihy1E55TwMiXchCoAb"
+      }
+    },
+    {
+      "chainId": 101,
       "address": "DnepvMafJZzDtDcevrqbMUCmDqdNhBLjCTUu1xhR4HeL",
       "symbol": "SDLP",
       "name": "Sterlingdex LP Token",
@@ -40,7 +70,6 @@
       ],
       "extensions": {
         "website": "https://sterlingdex.org",
-        "bridgeEndpoint": "http://localhost:1492/bridge",
         "realPegUSD": true,
         "cashbackBacked": true,
         "sovereignControlled": true,

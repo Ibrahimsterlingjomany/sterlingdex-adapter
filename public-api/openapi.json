@@ -1,0 +1,146 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "SterlingDEX Public Surface",
+    "version": "0.1.0",
+    "description": "Minimal public protocol surface for SterlingDEX on Solana."
+  },
+  "servers": [
+    {
+      "url": "https://your-public-sterlingdex-domain.example"
+    }
+  ],
+  "paths": {
+    "/status": {
+      "get": {
+        "summary": "Protocol status",
+        "responses": {
+          "200": {
+            "description": "Current public SterlingDEX status"
+          }
+        }
+      }
+    },
+    "/tokenlist": {
+      "get": {
+        "summary": "Canonical SterlingDEX token list",
+        "responses": {
+          "200": {
+            "description": "Token list JSON"
+          }
+        }
+      }
+    },
+    "/pools": {
+      "get": {
+        "summary": "Pool registry",
+        "responses": {
+          "200": {
+            "description": "Pool registry JSON"
+          }
+        }
+      }
+    },
+    "/pairs": {
+      "get": {
+        "summary": "Pair registry",
+        "responses": {
+          "200": {
+            "description": "Pair registry JSON"
+          }
+        }
+      }
+    },
+    "/quote": {
+      "post": {
+        "summary": "Request a protocol quote",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "inputMint",
+                  "outputMint",
+                  "amount"
+                ],
+                "properties": {
+                  "inputMint": {
+                    "type": "string"
+                  },
+                  "outputMint": {
+                    "type": "string"
+                  },
+                  "amount": {
+                    "type": "string"
+                  },
+                  "slippageBps": {
+                    "type": "number"
+                  },
+                  "quoteOnly": {
+                    "type": "boolean"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Quote response"
+          },
+          "501": {
+            "description": "Public quote upstream not configured yet"
+          }
+        }
+      }
+    },
+    "/swap": {
+      "post": {
+        "summary": "Request a protocol swap route",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "inputMint",
+                  "outputMint",
+                  "amount",
+                  "userPublicKey"
+                ],
+                "properties": {
+                  "inputMint": {
+                    "type": "string"
+                  },
+                  "outputMint": {
+                    "type": "string"
+                  },
+                  "amount": {
+                    "type": "string"
+                  },
+                  "userPublicKey": {
+                    "type": "string"
+                  },
+                  "slippageBps": {
+                    "type": "number"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Swap route response"
+          },
+          "501": {
+            "description": "Public swap upstream not configured yet"
+          }
+        }
+      }
+    }
+  }
+}

@@ -2,6 +2,12 @@
 import { PublicKey } from "@solana/web3.js";
 import fetch from "node-fetch";
 
+const DEFAULT_BASE_URL =
+  process.env.STERLINGDEX_BASE_URL || "https://dex.sterlingchain.xyz";
+const DEFAULT_POOL_SNAPSHOT_URL =
+  process.env.STERLINGDEX_POOL_SNAPSHOT_URL ||
+  `${DEFAULT_BASE_URL}/pools/all_pools_snapshot.json`;
+
 export const SterlingDEX = {
   id: "sterlingdex",
   displayName: "SterlingDEX",
@@ -11,27 +17,22 @@ export const SterlingDEX = {
   programId: new PublicKey("7v9sLrk92NNLLUfXLJw3o7MycZNvwsTK6kLWfWb8vcVA"),
 
   // Endpoint backend exposant les pools
-  poolSnapshotURL: "https://dex.sterlingchain.xyz/pools/all_pools_snapshot.json",
+  poolSnapshotURL: DEFAULT_POOL_SNAPSHOT_URL,
 
   async getPools() {
     const res = await fetch(this.poolSnapshotURL);
     if (!res.ok) throw new Error("Erreur de chargement des pools SterlingDEX");
     const data = await res.json();
-    return data.pools;
+    return Array.isArray(data?.pools) ? data.pools : data;
   },
 
   async getSwapQuote({ inputMint, outputMint, amount }) {
-    return {
-      inAmount: amount,
-      outAmount: Math.floor(amount * 0.997),
-      fee: Math.floor(amount * 0.003),
-      route: [
-        {
-          marketId: "BbvR4zUAwZF8LmVFLXNpDy3CxuYcDwd5isoh7CZFAF5G",
-          inputMint,
-          outputMint,
-        },
-      ],
-    };
+    throw new Error(
+      [
+        "SterlingDEX quote adapter is not wired to a public routing endpoint yet.",
+        `Requested route: ${inputMint} -> ${outputMint} for amount ${amount}.`,
+        "Expose a public Sterling quote API before advertising router integration.",
+      ].join(" "),
+    );
   },
 };

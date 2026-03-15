@@ -1,0 +1,113 @@
+{
+  "ok": true,
+  "protocolId": "sterlingdex",
+  "generatedAt": "2026-03-15T06:49:47.067Z",
+  "pools": [
+    {
+      "poolId": "6FVgFKkbi4yrNTw6kJjuRt5B7JGj9yk3VEmwoeqWQZXa",
+      "programId": "7v9sLrk92NNLLUfXLJw3o7MycZNvwsTK6kLWfWb8vcVA",
+      "configPda": "Htopqis52g8nGvvkpnG7Z7XZhgBpqtN9huqUyk6LH9gB",
+      "authority": "CMqD45Kq5oukPvaMDhzav5RxJqZb1xME1MmV71CzCeTw",
+      "sources": [
+        "REPORT_SNAPSHOT"
+      ],
+      "listedMints": [],
+      "listedPairs": [],
+      "lpMint": null,
+      "metrics": null,
+      "notes": "Pool discovered from snapshots only; pair mapping incomplete."
+    },
+    {
+      "poolId": "8NvJEAAaPzB46hcX1fcLLVmea2htNMrNSViQk24bZ7P5",
+      "programId": "7v9sLrk92NNLLUfXLJw3o7MycZNvwsTK6kLWfWb8vcVA",
+      "configPda": "Htopqis52g8nGvvkpnG7Z7XZhgBpqtN9huqUyk6LH9gB",
+      "authority": "CMqD45Kq5oukPvaMDhzav5RxJqZb1xME1MmV71CzCeTw",
+      "sources": [
+        "REPORT_SNAPSHOT"
+      ],
+      "listedMints": [],
+      "listedPairs": [],
+      "lpMint": null,
+      "metrics": null,
+      "notes": "Pool discovered from snapshots only; pair mapping incomplete."
+    },
+    {
+      "poolId": "BbvR4zUAwZF8LmVFLXNpDy3CxuYcDwd5isoh7CZFAF5G",
+      "programId": "7v9sLrk92NNLLUfXLJw3o7MycZNvwsTK6kLWfWb8vcVA",
+      "configPda": "Htopqis52g8nGvvkpnG7Z7XZhgBpqtN9huqUyk6LH9gB",
+      "authority": "CMqD45Kq5oukPvaMDhzav5RxJqZb1xME1MmV71CzCeTw",
+      "sources": [
+        "REPORT_SNAPSHOT",
+        "TOKENLIST",
+        "VALUE_REGISTRY"
+      ],
+      "listedMints": [
+        "9kued2JXgVk5dzvtipsTdXfBMWihy1E55TwMiXchCoAb",
+        "DnepvMafJZzDtDcevrqbMUCmDqdNhBLjCTUu1xhR4HeL",
+        "EsNo61QodqHCRjkTGJDeqyK7N4Hunip5PaTYbpPZEsG2"
+      ],
+      "listedPairs": [
+        "SJBC-USDC",
+        "STM-USDC"
+      ],
+      "lpMint": "DnepvMafJZzDtDcevrqbMUCmDqdNhBLjCTUu1xhR4HeL",
+      "metrics": {
+        "lastUpdated": "2025-12-31T18:33:11+00:00",
+        "swapsTotal": 21,
+        "volumeUsdEstimateTotal": 21000000000,
+        "feesUsdEstimateTotal": 1050000000,
+        "totalBase": 17445744073.709553,
+        "totalQuote": 17446744073.709553
+      },
+      "notes": "Sterling private pool can back multiple settlement assets under one pool id."
+    },
+    {
+      "poolId": "F6QDJP8hkRY23yQjnV2P8jyaHhC2qGaVb3smwWVQsQyK",
+      "programId": "7v9sLrk92NNLLUfXLJw3o7MycZNvwsTK6kLWfWb8vcVA",
+      "configPda": "Htopqis52g8nGvvkpnG7Z7XZhgBpqtN9huqUyk6LH9gB",
+      "authority": "CMqD45Kq5oukPvaMDhzav5RxJqZb1xME1MmV71CzCeTw",
+      "sources": [
+        "REPORT_SNAPSHOT"
+      ],
+      "listedMints": [],
+      "listedPairs": [],
+      "lpMint": null,
+      "metrics": null,
+      "notes": "Pool discovered from snapshots only; pair mapping incomplete."
+    },
+    {
+      "poolId": "GueLwVCqG18cneMNXCBhxBAabgVQqZYGxkT7UAWPyoCs",
+      "programId": "7v9sLrk92NNLLUfXLJw3o7MycZNvwsTK6kLWfWb8vcVA",
+      "configPda": "Htopqis52g8nGvvkpnG7Z7XZhgBpqtN9huqUyk6LH9gB",
+      "authority": "CMqD45Kq5oukPvaMDhzav5RxJqZb1xME1MmV71CzCeTw",
+      "sources": [
+        "REPORT_SNAPSHOT"
+      ],
+      "listedMints": [],
+      "listedPairs": [],
+      "lpMint": null,
+      "metrics": null,
+      "notes": "Pool discovered from snapshots only; pair mapping incomplete."
+    },
+    {
+      "poolId": "Hj4dwRe2ZbmPasT7412LdhcTANEsXkjuG2eh4uUgUQNq",
+      "programId": "7v9sLrk92NNLLUfXLJw3o7MycZNvwsTK6kLWfWb8vcVA",
+      "configPda": "Htopqis52g8nGvvkpnG7Z7XZhgBpqtN9huqUyk6LH9gB",
+      "authority": "CMqD45Kq5oukPvaMDhzav5RxJqZb1xME1MmV71CzCeTw",
+      "sources": [
+        "REPORT_SNAPSHOT",
+        "TOKENLIST",
+        "VALUE_REGISTRY"
+      ],
+      "listedMints": [
+        "FwCp9JvCxtC88rJNWJSZFcoSUDW8NuSzKKSwt7MPF9of"
+      ],
+      "listedPairs": [
+        "SJBC3-USDC"
+      ],
+      "lpMint": "DnepvMafJZzDtDcevrqbMUCmDqdNhBLjCTUu1xhR4HeL",
+      "metrics": null,
+      "notes": "Pool resolved from Sterling value registry."
+    }
+  ]
+}
