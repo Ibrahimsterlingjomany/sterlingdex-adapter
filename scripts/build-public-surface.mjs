@@ -1322,6 +1322,13 @@ writeJson("public-api/sterling_index_pack.json", {
   endpoints: status.endpoints,
   surfaces: status.surfaces,
 });
+writeJson("public-api/historical_snapshot_feeds.json", {
+  ok: true,
+  protocolId: "sterlingdex",
+  generatedAt: status.generatedAt,
+  feedCount: Object.keys(historicalSnapshotFeeds || {}).length,
+  feeds: historicalSnapshotFeeds,
+});
 
 console.log(
   JSON.stringify({
@@ -1335,6 +1342,7 @@ console.log(
       "public-api/openapi.json",
       "public-api/token_catalog.json",
       "public-api/sterling_index_pack.json",
+      "public-api/historical_snapshot_feeds.json",
     ],
     pairs: pairs.length,
     pools: pools.length,

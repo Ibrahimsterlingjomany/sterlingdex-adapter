@@ -1,7 +1,7 @@
 {
   "schema": "sterling_program_idl_snapshot_v1",
   "source": "http://127.0.0.1:8000/idl",
-  "generatedAt": "2026-04-15T03:04:33.347Z",
+  "generatedAt": "2026-04-15T03:17:01.690Z",
   "idl": {
     "ok": true,
     "name": "sterling_amm",
