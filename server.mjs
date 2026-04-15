@@ -212,6 +212,16 @@ function loadJson(relPath) {
   return JSON.parse(readFileSync(fullPath, "utf8"));
 }
 
+function loadJsonIfExists(relPath, fallback = null) {
+  const fullPath = path.join(__dirname, relPath);
+  if (!existsSync(fullPath)) return fallback;
+  try {
+    return JSON.parse(readFileSync(fullPath, "utf8"));
+  } catch {
+    return fallback;
+  }
+}
+
 function sendJson(res, statusCode, payload) {
   res.writeHead(statusCode, jsonHeaders);
   res.end(JSON.stringify(payload, null, 2));
@@ -423,7 +433,7 @@ async function buildSovereignBackingSnapshot() {
 }
 
 function buildHistoricalFeeSnapshot() {
-  const report = loadJson("../reports/december_2025_pool_fee_inventory.json");
+  const report = loadJsonIfExists("../reports/december_2025_pool_fee_inventory.json", {}) || {};
   return {
     schema: "sterling_fee_snapshot_v1",
     period: "2025-12",
@@ -438,30 +448,61 @@ function buildHistoricalFeeSnapshot() {
 }
 
 function buildPayableTicketBatch() {
+  const rebuiltReport = loadJsonIfExists("../reports/fee_claim_ticket_route_rebuild_2026-04-13.json", {}) || {};
+  const rebuiltResults = Array.isArray(rebuiltReport.results) ? rebuiltReport.results : [];
+  const rebuiltFamilies = Array.from(
+    new Set([
+      ...REBUILT_PAYABLE_CLAIM_IDS,
+      ...rebuiltResults.map((row) => String(row?.claim_id || "").trim()).filter(Boolean),
+    ]),
+  );
+  const rebuiltFamilySet = new Set(rebuiltFamilies);
   const receiptsDir = path.join(rootDir, "output", "receipts");
   const deduped = new Map();
-  for (const file of readdirSync(receiptsDir)) {
-    if (!file.startsWith("settlement_receipt_BbvR4zUAwZF8LmVFLXNpDy3C_usdc_") || !file.endsWith(".json")) continue;
-    const raw = parseJsonFile(path.join(receiptsDir, file));
-    const claimId = String(raw?.claim_id || "").trim();
-    if (!REBUILT_PAYABLE_CLAIM_IDS.includes(claimId)) continue;
-    const ticketId = String(raw?.ticket_id || file.replace(/^settlement_receipt_/, "").replace(/\.json$/, ""));
-    const ticketValueUsdMicros = Number(raw?.ticket_value_usd_micros || 0);
-    const paidUsdEquivalentMicros = Number(raw?.paid_usd_equivalent_micros || 0);
-    const remainingUsdEquivalentMicros = Number(
-      raw?.remaining_usd_equivalent_micros ?? Math.max(ticketValueUsdMicros - paidUsdEquivalentMicros, 0),
-    );
+
+  for (const row of rebuiltResults) {
+    const claimId = String(row?.claim_id || "").trim();
+    const ticketId = String(row?.ticket_id || "").trim();
+    if (!claimId || !ticketId || !rebuiltFamilySet.has(claimId)) continue;
+    const ticketValueUsdMicros = Number(row?.ticket_value_usd_micros || 0);
+    const paidUsdEquivalentMicros = Number(row?.paid_usd_equivalent_micros || 0);
     deduped.set(ticketId, {
       claim_id: claimId,
       ticket_id: ticketId,
-      status: String(raw?.status || "UNKNOWN"),
+      status: String(row?.response_status || row?.status || "ROUTING"),
       ticket_value_usd_micros: ticketValueUsdMicros,
       paid_usd_equivalent_micros: paidUsdEquivalentMicros,
-      remaining_usd_equivalent_micros: remainingUsdEquivalentMicros,
+      remaining_usd_equivalent_micros: Number(
+        row?.remaining_usd_equivalent_micros ?? Math.max(ticketValueUsdMicros - paidUsdEquivalentMicros, 0),
+      ),
     });
   }
+
+  if (existsSync(receiptsDir)) {
+    for (const file of readdirSync(receiptsDir)) {
+      if (!file.startsWith("settlement_receipt_BbvR4zUAwZF8LmVFLXNpDy3C_usdc_") || !file.endsWith(".json")) continue;
+      const raw = parseJsonFile(path.join(receiptsDir, file));
+      const claimId = String(raw?.claim_id || "").trim();
+      if (!rebuiltFamilySet.has(claimId)) continue;
+      const ticketId = String(raw?.ticket_id || file.replace(/^settlement_receipt_/, "").replace(/\.json$/, ""));
+      const ticketValueUsdMicros = Number(raw?.ticket_value_usd_micros || 0);
+      const paidUsdEquivalentMicros = Number(raw?.paid_usd_equivalent_micros || 0);
+      const remainingUsdEquivalentMicros = Number(
+        raw?.remaining_usd_equivalent_micros ?? Math.max(ticketValueUsdMicros - paidUsdEquivalentMicros, 0),
+      );
+      deduped.set(ticketId, {
+        claim_id: claimId,
+        ticket_id: ticketId,
+        status: String(raw?.status || "UNKNOWN"),
+        ticket_value_usd_micros: ticketValueUsdMicros,
+        paid_usd_equivalent_micros: paidUsdEquivalentMicros,
+        remaining_usd_equivalent_micros: remainingUsdEquivalentMicros,
+      });
+    }
+  }
+
   const rows = Array.from(deduped.values());
-  const claimFamilies = REBUILT_PAYABLE_CLAIM_IDS.map((claimId) => ({
+  const claimFamilies = rebuiltFamilies.map((claimId) => ({
     claim_id: claimId,
     tickets: rows.filter((row) => row.claim_id === claimId).length,
   }));
@@ -471,7 +512,7 @@ function buildPayableTicketBatch() {
   return {
     schema: "sterling_payable_ticket_batch_v1",
     batch: "reconstructed_fee_claims",
-    destination_ata: TREASURY_USDC_ATA,
+    destination_ata: String(rebuiltReport.destination || TREASURY_USDC_ATA),
     rebuilt_claim_families: claimFamilies,
     rebuilt_claim_family_count: claimFamilies.length,
     ticket_count: rows.length,
@@ -487,7 +528,7 @@ function buildPayableTicketBatch() {
 }
 
 function buildClaimsAndDebtSnapshot() {
-  const inventory = loadJson("../reports/sterling_mainnet_inventory_20260403T030339Z.json");
+  const inventory = loadJsonIfExists("../reports/sterling_mainnet_inventory_20260403T030339Z.json", {}) || {};
   const counts = inventory?.account_counts || {};
   const config = inventory?.config?.partial?.parsed || {};
   return {

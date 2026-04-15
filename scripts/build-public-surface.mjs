@@ -408,30 +408,46 @@ function buildTokenCatalog() {
 }
 
 function buildPayableTicketMetrics() {
-  const rebuiltFamilies = Array.from(
-    new Set((rebuiltTicketReport.results || []).map((row) => String(row.claim_id || "").trim()).filter(Boolean)),
-  );
+  const rebuiltResults = Array.isArray(rebuiltTicketReport.results) ? rebuiltTicketReport.results : [];
+  const rebuiltFamilies = Array.from(new Set(rebuiltResults.map((row) => String(row.claim_id || "").trim()).filter(Boolean)));
+  const rebuiltFamilySet = new Set(rebuiltFamilies);
   const receiptsDir = path.join(rootDir, "output", "receipts");
-  const rows = [];
-  for (const file of readdirSync(receiptsDir)) {
-    if (!file.startsWith("settlement_receipt_BbvR4zUAwZF8LmVFLXNpDy3C_usdc_") || !file.endsWith(".json")) continue;
-    const raw = JSON.parse(readFileSync(path.join(receiptsDir, file), "utf8"));
-    const claimId = String(raw.claim_id || "").trim();
-    if (!rebuiltFamilies.includes(claimId)) continue;
-    const ticketId = String(raw.ticket_id || file.replace(/^settlement_receipt_/, "").replace(/\.json$/, ""));
-    const ticketValueUsdMicros = Number(raw.ticket_value_usd_micros || 0);
-    const paidUsdEquivalentMicros = Number(raw.paid_usd_equivalent_micros || 0);
-    const remainingUsdEquivalentMicros = Number(
-      raw.remaining_usd_equivalent_micros ?? Math.max(ticketValueUsdMicros - paidUsdEquivalentMicros, 0),
-    );
-    rows.push({
-      claimId,
-      ticketId,
-      status: String(raw.status || "UNKNOWN"),
+  const rows = rebuiltResults.map((row) => {
+    const ticketValueUsdMicros = Number(row.ticket_value_usd_micros || 0);
+    const paidUsdEquivalentMicros = Number(row.paid_usd_equivalent_micros || 0);
+    return {
+      claimId: String(row.claim_id || "").trim(),
+      ticketId: String(row.ticket_id || "").trim(),
+      status: String(row.response_status || row.status || "ROUTING"),
       ticketValueUsdMicros,
       paidUsdEquivalentMicros,
-      remainingUsdEquivalentMicros,
-    });
+      remainingUsdEquivalentMicros: Number(
+        row.remaining_usd_equivalent_micros ?? Math.max(ticketValueUsdMicros - paidUsdEquivalentMicros, 0),
+      ),
+    };
+  });
+
+  if (existsSync(receiptsDir)) {
+    for (const file of readdirSync(receiptsDir)) {
+      if (!file.startsWith("settlement_receipt_BbvR4zUAwZF8LmVFLXNpDy3C_usdc_") || !file.endsWith(".json")) continue;
+      const raw = JSON.parse(readFileSync(path.join(receiptsDir, file), "utf8"));
+      const claimId = String(raw.claim_id || "").trim();
+      if (!rebuiltFamilySet.has(claimId)) continue;
+      const ticketId = String(raw.ticket_id || file.replace(/^settlement_receipt_/, "").replace(/\.json$/, ""));
+      const ticketValueUsdMicros = Number(raw.ticket_value_usd_micros || 0);
+      const paidUsdEquivalentMicros = Number(raw.paid_usd_equivalent_micros || 0);
+      const remainingUsdEquivalentMicros = Number(
+        raw.remaining_usd_equivalent_micros ?? Math.max(ticketValueUsdMicros - paidUsdEquivalentMicros, 0),
+      );
+      rows.push({
+        claimId,
+        ticketId,
+        status: String(raw.status || "UNKNOWN"),
+        ticketValueUsdMicros,
+        paidUsdEquivalentMicros,
+        remainingUsdEquivalentMicros,
+      });
+    }
   }
   const deduped = new Map();
   for (const row of rows.sort((a, b) => a.ticketId.localeCompare(b.ticketId))) {
