@@ -34,6 +34,16 @@ To avoid metric confusion, three snapshots are published separately:
 - Fee window snapshot (December 2025): `1,812` swaps, `90.6M` volume, `4.53M` fees (`historicalSnapshots.feeWindowSnapshot`)
 - Long activity snapshot: `13,839` estimated swaps from long-period log rows (`historicalSnapshots.longActivitySnapshot`)
 
+Detailed JSON snapshots (same key-shape as the legacy pool snapshot) are also published:
+
+- `historicalSnapshotFeeds.headlineDetailedSnapshot`
+- `historicalSnapshotFeeds.feeWindowDetailedSnapshot`
+- `historicalSnapshotFeeds.longActivityDetailedSnapshot`
+
+Each detailed block keeps the full fields expected by reviewers:
+`time`, `program_id`, `pool`, `lp_token_mint`, `config`, vault values, totals,
+`swaps_total`, `volume_usd_est_total`, `fees_usd_est_total`, `negociants_est_total`.
+
 ### Tokens, metadata, logos
 
 `public-api/token_catalog.json` and `public-api/status.json` expose:

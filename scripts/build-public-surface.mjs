@@ -237,12 +237,23 @@ function buildSwapActivitySnapshot() {
       note: "swap log source found but empty",
     };
   }
-  let last = {};
-  try {
-    last = JSON.parse(lines[lines.length - 1]);
-  } catch {
-    last = {};
+  const parsedRows = [];
+  for (const line of lines) {
+    try {
+      parsedRows.push(JSON.parse(line));
+    } catch {}
   }
+  const last = parsedRows[parsedRows.length - 1] || {};
+  const totals = parsedRows.reduce(
+    (acc, row) => {
+      acc.volumeTokens += Number(row.volume_tokens || 0);
+      acc.volumeUsdEstimate += Number(row.volume_usd_est ?? row.volume_usd ?? 0);
+      acc.feesTokens += Number(row.fee_tokens_est || 0);
+      acc.feesUsdEstimate += Number(row.fee_usd_est || 0);
+      return acc;
+    },
+    { volumeTokens: 0, volumeUsdEstimate: 0, feesTokens: 0, feesUsdEstimate: 0 },
+  );
   const tradersEstimated = Number(last.negociants_est_count || 0);
   const swapsPerTraderEstimate = Number(last.swaps_per_negociant_estimate || 0);
   const swapsEstimated = Math.round(tradersEstimated * swapsPerTraderEstimate);
@@ -255,8 +266,122 @@ function buildSwapActivitySnapshot() {
     tradersEstimated,
     swapsPerTraderEstimate,
     swapsEstimated,
+    volumeTokensEstimateTotal: totals.volumeTokens,
+    volumeUsdEstimateTotal: totals.volumeUsdEstimate,
+    feesTokensEstimateTotal: totals.feesTokens,
+    feesUsdEstimateTotal: totals.feesUsdEstimate,
+    lastSnapshot: last?.snapshot || null,
     note:
       "Snapshot d'activite longue periode. Les chiffres volume/fees officiels decembre restent publies dans historicalFees pour eviter tout melange.",
+  };
+}
+
+function buildDetailedSnapshotModel({
+  snapshotTime,
+  baseVault,
+  quoteVault,
+  userBaseAta,
+  userQuoteAta,
+  totalBase,
+  totalQuote,
+  swapsTotal,
+  volumeTokensTotal,
+  volumeUsdEstimateTotal,
+  feesTokensEstimateTotal,
+  feesUsdEstimateTotal,
+  tradersEstimated,
+  swapsPerTraderEstimate,
+  snapshotSource,
+  snapshotReference,
+}) {
+  return {
+    time: snapshotTime || legacySnapshot.time || null,
+    ecosystem: legacySnapshot.ecosystem || "SterlingChain / Sterling DEX",
+    program_id: PROGRAM_ID,
+    pool: legacySnapshot.pool || "BbvR4zUAwZF8LmVFLXNpDy3CxuYcDwd5isoh7CZFAF5G",
+    lp_token_mint: legacySnapshot.lp_token_mint || null,
+    config: CONFIG_PDA,
+    BASE_VAULT: Number(baseVault || 0),
+    QUOTE_VAULT: Number(quoteVault || 0),
+    USER_BASE_ATA: Number(userBaseAta || 0),
+    USER_QUOTE_ATA: Number(userQuoteAta || 0),
+    TOTAL_BASE: Number(totalBase || 0),
+    TOTAL_QUOTE: Number(totalQuote || 0),
+    last_updated: snapshotTime || legacySnapshot.last_updated || legacySnapshot.time || null,
+    swaps_total: Number(swapsTotal || 0),
+    volume_tokens_total: Number(volumeTokensTotal || 0),
+    volume_usd_est_total: Number(volumeUsdEstimateTotal || 0),
+    fees_tokens_est_total: Number(feesTokensEstimateTotal || 0),
+    fees_usd_est_total: Number(feesUsdEstimateTotal || 0),
+    negociants_est_total: Number(tradersEstimated || 0),
+    swaps_per_negociant_estimate: Number(swapsPerTraderEstimate || 0),
+    negociants_label:
+      legacySnapshot.negociants_label || "👥 Traders actifs SterlingChain / Sterling DEX uniquement",
+    snapshot_source: snapshotSource || null,
+    snapshot_reference: snapshotReference || null,
+  };
+}
+
+function buildHistoricalSnapshotFeeds(decemberFeeMetrics, swapActivitySnapshot) {
+  const decemberSwaps = Array.isArray(decemberFeeInventory?.swaps) ? decemberFeeInventory.swaps : [];
+  const feeWindowLastSwap = decemberSwaps[decemberSwaps.length - 1] || {};
+  const feeWindowLastSnapshot = feeWindowLastSwap.snapshot || {};
+  const feeWindowTraders = decemberSwaps.reduce(
+    (maxCount, row) => Math.max(maxCount, Number(row.negociants_est_count || 0)),
+    0,
+  );
+  const feeWindowSwapsPerTrader = Number(feeWindowLastSwap.swaps_per_negociant_estimate || 1.3);
+
+  const longLastSnapshot = swapActivitySnapshot?.lastSnapshot || {};
+  const longSwapsTotal = Number(
+    swapActivitySnapshot?.swapsEstimated || swapActivitySnapshot?.swapRowsLogged || 0,
+  );
+  const longTraders = Number(swapActivitySnapshot?.tradersEstimated || 0);
+  const longSwapsPerTrader = Number(swapActivitySnapshot?.swapsPerTraderEstimate || 0);
+
+  return {
+    headlineDetailedSnapshot: {
+      ...legacySnapshot,
+      snapshot_source: "all_pools_snapshot.json",
+      snapshot_reference: "sterlingdex-adapter/all_pools_snapshot.json",
+    },
+    feeWindowDetailedSnapshot: buildDetailedSnapshotModel({
+      snapshotTime: feeWindowLastSnapshot.time || feeWindowLastSwap.timestamp || legacySnapshot.time,
+      baseVault: feeWindowLastSnapshot.BASE_VAULT,
+      quoteVault: feeWindowLastSnapshot.QUOTE_VAULT,
+      userBaseAta: feeWindowLastSnapshot.USER_BASE_ATA,
+      userQuoteAta: feeWindowLastSnapshot.USER_QUOTE_ATA,
+      totalBase: feeWindowLastSnapshot.TOTAL_BASE,
+      totalQuote: feeWindowLastSnapshot.TOTAL_QUOTE,
+      swapsTotal: decemberFeeMetrics.swapCount,
+      volumeTokensTotal: decemberFeeMetrics.volumeUsdEstimate,
+      volumeUsdEstimateTotal: decemberFeeMetrics.volumeUsdEstimate,
+      feesTokensEstimateTotal: decemberFeeMetrics.feesUsdEstimate,
+      feesUsdEstimateTotal: decemberFeeMetrics.feesUsdEstimate,
+      tradersEstimated: feeWindowTraders,
+      swapsPerTraderEstimate: feeWindowSwapsPerTrader,
+      snapshotSource: "december_2025_pool_fee_inventory.json",
+      snapshotReference: "reports/december_2025_pool_fee_inventory.json",
+    }),
+    longActivityDetailedSnapshot: buildDetailedSnapshotModel({
+      snapshotTime: swapActivitySnapshot?.timestamp || longLastSnapshot.time || legacySnapshot.time,
+      baseVault: longLastSnapshot.BASE_VAULT,
+      quoteVault: longLastSnapshot.QUOTE_VAULT,
+      userBaseAta: longLastSnapshot.USER_BASE_ATA,
+      userQuoteAta: longLastSnapshot.USER_QUOTE_ATA,
+      totalBase: longLastSnapshot.TOTAL_BASE,
+      totalQuote: longLastSnapshot.TOTAL_QUOTE,
+      swapsTotal: longSwapsTotal,
+      volumeTokensTotal: swapActivitySnapshot?.volumeTokensEstimateTotal || 0,
+      volumeUsdEstimateTotal: swapActivitySnapshot?.volumeUsdEstimateTotal || 0,
+      feesTokensEstimateTotal: swapActivitySnapshot?.feesTokensEstimateTotal || 0,
+      feesUsdEstimateTotal: swapActivitySnapshot?.feesUsdEstimateTotal || 0,
+      tradersEstimated: longTraders,
+      swapsPerTraderEstimate: longSwapsPerTrader,
+      snapshotSource: "swap_volume_log.BbvR4z...jsonl",
+      snapshotReference:
+        "swap_logs/swap_volume_log.BbvR4zUAwZF8LmVFLXNpDy3CxuYcDwd5isoh7CZFAF5G.jsonl",
+    }),
   };
 }
 
@@ -364,6 +489,7 @@ function buildClaimsAndDebtMetrics() {
 const sovereignBacking = await buildSovereignBackingMetrics();
 const decemberFeeMetrics = buildDecemberFeeMetrics();
 const swapActivitySnapshot = buildSwapActivitySnapshot();
+const historicalSnapshotFeeds = buildHistoricalSnapshotFeeds(decemberFeeMetrics, swapActivitySnapshot);
 const payableTicketMetrics = buildPayableTicketMetrics();
 const claimsAndDebtMetrics = buildClaimsAndDebtMetrics();
 const tokenCatalog = buildTokenCatalog();
@@ -465,6 +591,7 @@ const pools = hardPoolRows.map((pool) => {
     sovereignBacking,
     historicalFees: decemberFeeMetrics,
     swapActivity: swapActivitySnapshot,
+    historicalSnapshotFeeds,
     historicalSnapshots: {
       headlineSnapshot: {
         schema: "sterling_headline_snapshot_v1",
@@ -532,6 +659,7 @@ const status = {
   sovereignBacking,
   historicalFees: decemberFeeMetrics,
   swapActivity: swapActivitySnapshot,
+  historicalSnapshotFeeds,
   historicalSnapshots: {
     headlineSnapshot: {
       swapsTotal: legacySnapshot.swaps_total ?? null,
@@ -1189,6 +1317,7 @@ writeJson("public-api/sterling_index_pack.json", {
   pair: pairs[0] || null,
   pool: pools[0] || null,
   tokenCatalog,
+  historicalSnapshotFeeds,
   historicalSnapshots: status.historicalSnapshots,
   endpoints: status.endpoints,
   surfaces: status.surfaces,
