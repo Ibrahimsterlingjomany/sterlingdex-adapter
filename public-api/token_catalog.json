@@ -1,0 +1,73 @@
+{
+  "ok": true,
+  "protocolId": "sterlingdex",
+  "generatedAt": "2026-04-15T02:08:21.279Z",
+  "site": "https://sterlingchain.net",
+  "api": "https://api.sterlingchain.net",
+  "tokens": [
+    {
+      "symbol": "SDLP",
+      "name": "SterlingDEX LP Token",
+      "mint": "DnepvMafJZzDtDcevrqbMUCmDqdNhBLjCTUu1xhR4HeL",
+      "decimals": 6,
+      "logoURI": "https://sterlingchain.net/token-assets/sdlp.jpg",
+      "metadataURI": "https://sterlingchain.net/token-assets/sdlp.metadata.json",
+      "programId": "7v9sLrk92NNLLUfXLJw3o7MycZNvwsTK6kLWfWb8vcVA",
+      "configPda": "Htopqis52g8nGvvkpnG7Z7XZhgBpqtN9huqUyk6LH9gB",
+      "authority": "CMqD45Kq5oukPvaMDhzav5RxJqZb1xME1MmV71CzCeTw",
+      "poolId": "BbvR4zUAwZF8LmVFLXNpDy3CxuYcDwd5isoh7CZFAF5G",
+      "strategy": null,
+      "target": null,
+      "valueUsd": null,
+      "website": "https://sterlingchain.net"
+    },
+    {
+      "symbol": "SJBC",
+      "name": "SJBC USD",
+      "mint": "EsNo61QodqHCRjkTGJDeqyK7N4Hunip5PaTYbpPZEsG2",
+      "decimals": 9,
+      "logoURI": "https://sterlingchain.net/token-assets/sjbc.png",
+      "metadataURI": "https://white-persistent-silkworm-971.mypinata.cloud/ipfs/bafkreidlzlxs765cj4vqcd4j2vd55oxeebwmr4qbkloeh33i7qqnjjwdrq",
+      "programId": "7v9sLrk92NNLLUfXLJw3o7MycZNvwsTK6kLWfWb8vcVA",
+      "configPda": "Htopqis52g8nGvvkpnG7Z7XZhgBpqtN9huqUyk6LH9gB",
+      "authority": "CMqD45Kq5oukPvaMDhzav5RxJqZb1xME1MmV71CzCeTw",
+      "poolId": "BbvR4zUAwZF8LmVFLXNpDy3CxuYcDwd5isoh7CZFAF5G",
+      "strategy": "PRIVATE_POOL",
+      "target": "USDC",
+      "valueUsd": 1,
+      "website": "https://sterlingchain.net"
+    },
+    {
+      "symbol": "SJBC3",
+      "name": "SJBC3",
+      "mint": "FwCp9JvCxtC88rJNWJSZFcoSUDW8NuSzKKSwt7MPF9of",
+      "decimals": 9,
+      "logoURI": "https://sterlingchain.net/token-assets/sjbc3.svg",
+      "metadataURI": "https://white-persistent-silkworm-971.mypinata.cloud/ipfs/bafkreibkmfoodrqlasm35owalyi5daqze6ex42cpj6nwwm7puq42ai5wam",
+      "programId": "7v9sLrk92NNLLUfXLJw3o7MycZNvwsTK6kLWfWb8vcVA",
+      "configPda": "Htopqis52g8nGvvkpnG7Z7XZhgBpqtN9huqUyk6LH9gB",
+      "authority": "CMqD45Kq5oukPvaMDhzav5RxJqZb1xME1MmV71CzCeTw",
+      "poolId": "Hj4dwRe2ZbmPasT7412LdhcTANEsXkjuG2eh4uUgUQNq",
+      "strategy": "PRIVATE_POOL",
+      "target": "USDC",
+      "valueUsd": 1,
+      "website": "https://sterlingchain.net"
+    },
+    {
+      "symbol": "STM",
+      "name": "Sterling Mint",
+      "mint": "9kued2JXgVk5dzvtipsTdXfBMWihy1E55TwMiXchCoAb",
+      "decimals": 9,
+      "logoURI": "https://sterlingchain.net/token-assets/stm.jpg",
+      "metadataURI": "https://white-persistent-silkworm-971.mypinata.cloud/ipfs/bafkreigieiayj3zwzgfjvgcsrkagzykiqo3obe6o556v25mrsnwjyc5hkq",
+      "programId": "7v9sLrk92NNLLUfXLJw3o7MycZNvwsTK6kLWfWb8vcVA",
+      "configPda": "Htopqis52g8nGvvkpnG7Z7XZhgBpqtN9huqUyk6LH9gB",
+      "authority": "CMqD45Kq5oukPvaMDhzav5RxJqZb1xME1MmV71CzCeTw",
+      "poolId": "BbvR4zUAwZF8LmVFLXNpDy3CxuYcDwd5isoh7CZFAF5G",
+      "strategy": "PRIVATE_POOL",
+      "target": "USDC",
+      "valueUsd": 1,
+      "website": "https://sterlingchain.net"
+    }
+  ]
+}

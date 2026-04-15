@@ -3,8 +3,8 @@
   "protocolId": "sterlingdex",
   "protocolName": "SterlingDEX",
   "ecosystem": "SterlingChain",
-  "generatedAt": "2026-04-15T01:05:05.364Z",
-  "publicBaseUrl": null,
+  "generatedAt": "2026-04-15T02:08:21.279Z",
+  "publicBaseUrl": "https://api.sterlingchain.net",
   "programId": "7v9sLrk92NNLLUfXLJw3o7MycZNvwsTK6kLWfWb8vcVA",
   "configPda": "Htopqis52g8nGvvkpnG7Z7XZhgBpqtN9huqUyk6LH9gB",
   "authority": "CMqD45Kq5oukPvaMDhzav5RxJqZb1xME1MmV71CzCeTw",
@@ -86,8 +86,36 @@
     "swapCount": 1812,
     "volumeUsdEstimate": 90600000,
     "feesUsdEstimate": 4530000,
-    "sourceSwapLog": "/Users/ibrahimjomanysterling/Sterling_Bridge_M3/swap_logs/swap_volume_log.BbvR4zUAwZF8LmVFLXNpDy3CxuYcDwd5isoh7CZFAF5G.json",
+    "sourceSwapLog": "swap_logs/swap_volume_log.BbvR4zUAwZF8LmVFLXNpDy3CxuYcDwd5isoh7CZFAF5G.json",
     "note": "Ces fees viennent du journal de swaps de decembre 2025 pour la pool canonique BbvR. Elles representent le stock historique gagne, pas un payout deja execute."
+  },
+  "swapActivity": {
+    "schema": "sterling_swap_activity_snapshot_v1",
+    "available": true,
+    "sourceJsonl": "swap_logs/swap_volume_log.BbvR4zUAwZF8LmVFLXNpDy3CxuYcDwd5isoh7CZFAF5G.jsonl",
+    "timestamp": "2026-01-05T17:57:56+00:00",
+    "swapRowsLogged": 12027,
+    "tradersEstimated": 10645,
+    "swapsPerTraderEstimate": 1.3,
+    "swapsEstimated": 13839,
+    "note": "Snapshot d'activite longue periode. Les chiffres volume/fees officiels decembre restent publies dans historicalFees pour eviter tout melange."
+  },
+  "historicalSnapshots": {
+    "headlineSnapshot": {
+      "swapsTotal": 21,
+      "volumeUsdEstimateTotal": 21000000000,
+      "feesUsdEstimateTotal": 1050000000
+    },
+    "feeWindowSnapshot": {
+      "swapsTotal": 1812,
+      "volumeUsdEstimateTotal": 90600000,
+      "feesUsdEstimateTotal": 4530000
+    },
+    "longActivitySnapshot": {
+      "swapsTotal": 13839,
+      "swapRowsLogged": 12027,
+      "timestamp": "2026-01-05T17:57:56+00:00"
+    }
   },
   "payableTickets": {
     "schema": "sterling_payable_ticket_batch_v1",
@@ -131,6 +159,72 @@
     "ticketFocus": "BbvR4zUAwZF8LmVFLXNpDy3C_usdc_34884160c99add9d412ee77e_T4",
     "note": "Ces chiffres rendent visibles la couche claims/tickets/debt du programme sans pretendre qu'un payout final a deja ete execute."
   },
+  "tokenCatalog": [
+    {
+      "symbol": "SDLP",
+      "name": "SterlingDEX LP Token",
+      "mint": "DnepvMafJZzDtDcevrqbMUCmDqdNhBLjCTUu1xhR4HeL",
+      "decimals": 6,
+      "logoURI": "https://sterlingchain.net/token-assets/sdlp.jpg",
+      "metadataURI": "https://sterlingchain.net/token-assets/sdlp.metadata.json",
+      "programId": "7v9sLrk92NNLLUfXLJw3o7MycZNvwsTK6kLWfWb8vcVA",
+      "configPda": "Htopqis52g8nGvvkpnG7Z7XZhgBpqtN9huqUyk6LH9gB",
+      "authority": "CMqD45Kq5oukPvaMDhzav5RxJqZb1xME1MmV71CzCeTw",
+      "poolId": "BbvR4zUAwZF8LmVFLXNpDy3CxuYcDwd5isoh7CZFAF5G",
+      "strategy": null,
+      "target": null,
+      "valueUsd": null,
+      "website": "https://sterlingchain.net"
+    },
+    {
+      "symbol": "SJBC",
+      "name": "SJBC USD",
+      "mint": "EsNo61QodqHCRjkTGJDeqyK7N4Hunip5PaTYbpPZEsG2",
+      "decimals": 9,
+      "logoURI": "https://sterlingchain.net/token-assets/sjbc.png",
+      "metadataURI": "https://white-persistent-silkworm-971.mypinata.cloud/ipfs/bafkreidlzlxs765cj4vqcd4j2vd55oxeebwmr4qbkloeh33i7qqnjjwdrq",
+      "programId": "7v9sLrk92NNLLUfXLJw3o7MycZNvwsTK6kLWfWb8vcVA",
+      "configPda": "Htopqis52g8nGvvkpnG7Z7XZhgBpqtN9huqUyk6LH9gB",
+      "authority": "CMqD45Kq5oukPvaMDhzav5RxJqZb1xME1MmV71CzCeTw",
+      "poolId": "BbvR4zUAwZF8LmVFLXNpDy3CxuYcDwd5isoh7CZFAF5G",
+      "strategy": "PRIVATE_POOL",
+      "target": "USDC",
+      "valueUsd": 1,
+      "website": "https://sterlingchain.net"
+    },
+    {
+      "symbol": "SJBC3",
+      "name": "SJBC3",
+      "mint": "FwCp9JvCxtC88rJNWJSZFcoSUDW8NuSzKKSwt7MPF9of",
+      "decimals": 9,
+      "logoURI": "https://sterlingchain.net/token-assets/sjbc3.svg",
+      "metadataURI": "https://white-persistent-silkworm-971.mypinata.cloud/ipfs/bafkreibkmfoodrqlasm35owalyi5daqze6ex42cpj6nwwm7puq42ai5wam",
+      "programId": "7v9sLrk92NNLLUfXLJw3o7MycZNvwsTK6kLWfWb8vcVA",
+      "configPda": "Htopqis52g8nGvvkpnG7Z7XZhgBpqtN9huqUyk6LH9gB",
+      "authority": "CMqD45Kq5oukPvaMDhzav5RxJqZb1xME1MmV71CzCeTw",
+      "poolId": "Hj4dwRe2ZbmPasT7412LdhcTANEsXkjuG2eh4uUgUQNq",
+      "strategy": "PRIVATE_POOL",
+      "target": "USDC",
+      "valueUsd": 1,
+      "website": "https://sterlingchain.net"
+    },
+    {
+      "symbol": "STM",
+      "name": "Sterling Mint",
+      "mint": "9kued2JXgVk5dzvtipsTdXfBMWihy1E55TwMiXchCoAb",
+      "decimals": 9,
+      "logoURI": "https://sterlingchain.net/token-assets/stm.jpg",
+      "metadataURI": "https://white-persistent-silkworm-971.mypinata.cloud/ipfs/bafkreigieiayj3zwzgfjvgcsrkagzykiqo3obe6o556v25mrsnwjyc5hkq",
+      "programId": "7v9sLrk92NNLLUfXLJw3o7MycZNvwsTK6kLWfWb8vcVA",
+      "configPda": "Htopqis52g8nGvvkpnG7Z7XZhgBpqtN9huqUyk6LH9gB",
+      "authority": "CMqD45Kq5oukPvaMDhzav5RxJqZb1xME1MmV71CzCeTw",
+      "poolId": "BbvR4zUAwZF8LmVFLXNpDy3CxuYcDwd5isoh7CZFAF5G",
+      "strategy": "PRIVATE_POOL",
+      "target": "USDC",
+      "valueUsd": 1,
+      "website": "https://sterlingchain.net"
+    }
+  ],
   "capabilities": {
     "tokenlist": true,
     "tokens": true,
@@ -199,6 +293,18 @@
     "dexscreenerActivity": "/integrations/dexscreener/activity",
     "dexscreenerIndexingPack": "/integrations/dexscreener/indexing-pack",
     "publicRecognitionPack": "/recognition/public-pack"
+  },
+  "surfaces": {
+    "site": "https://sterlingchain.net",
+    "api": "https://api.sterlingchain.net",
+    "dex": "https://sterlingchain.net/dex",
+    "pool": "https://api.sterlingchain.net/pools/BbvR4zUAwZF8LmVFLXNpDy3CxuYcDwd5isoh7CZFAF5G",
+    "pair": "https://api.sterlingchain.net/pairs/STM-SJBCUSD",
+    "status": "https://api.sterlingchain.net/status",
+    "tokenlist": "https://api.sterlingchain.net/tokenlist",
+    "tokens": "https://api.sterlingchain.net/tokens",
+    "discovery": "https://sterlingchain.net/.well-known/sterling-discovery.json",
+    "ecosystem": "https://sterlingchain.net/.well-known/sterling-ecosystem.json"
   },
   "publishableNow": [
     "Canonical token metadata for SJBC and STM",

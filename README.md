@@ -12,6 +12,49 @@ This repo is for the public protocol layer:
 
 It does **not** pretend that routing is already public if it is not wired yet.
 
+## Public indexing pack (GitHub-visible)
+
+The repository now publishes a full public indexing bundle:
+
+- `public-api/status.json`
+- `public-api/pools.json`
+- `public-api/pairs.json`
+- `public-api/token_catalog.json`
+- `public-api/sterling_index_pack.json`
+- `public-api/openapi.json`
+
+These files are generated with `npm run build:surface` and are intended for
+Jupiter / DEX Screener / review teams.
+
+### Snapshot separation (important)
+
+To avoid metric confusion, three snapshots are published separately:
+
+- Headline historical snapshot: `21B` volume (`historicalSnapshots.headlineSnapshot`)
+- Fee window snapshot (December 2025): `1,812` swaps, `90.6M` volume, `4.53M` fees (`historicalSnapshots.feeWindowSnapshot`)
+- Long activity snapshot: `13,839` estimated swaps from long-period log rows (`historicalSnapshots.longActivitySnapshot`)
+
+### Tokens, metadata, logos
+
+`public-api/token_catalog.json` and `public-api/status.json` expose:
+
+- token symbol and name
+- token mint
+- token logo URI
+- token metadata URI
+- canonical program/config/authority mapping
+
+### SterlingChain surfaces
+
+Published in `status.surfaces` and included in `sterling_index_pack.json`:
+
+- site: `https://sterlingchain.net`
+- API: `https://api.sterlingchain.net`
+- dex, pair, pool, status, tokenlist, tokens, discovery, ecosystem
+
+All API route contracts are listed under `status.endpoints` and in
+`public-api/openapi.json`.
+
 ## Endpoints
 
 - `GET /status`

@@ -7,7 +7,7 @@
   },
   "servers": [
     {
-      "url": "https://your-public-sterlingdex-domain.example"
+      "url": "https://api.sterlingchain.net"
     }
   ],
   "paths": {

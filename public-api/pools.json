@@ -1,7 +1,7 @@
 {
   "ok": true,
   "protocolId": "sterlingdex",
-  "generatedAt": "2026-04-15T01:05:05.364Z",
+  "generatedAt": "2026-04-15T02:08:21.279Z",
   "pools": [
     {
       "poolId": "BbvR4zUAwZF8LmVFLXNpDy3CxuYcDwd5isoh7CZFAF5G",
@@ -118,8 +118,42 @@
         "swapCount": 1812,
         "volumeUsdEstimate": 90600000,
         "feesUsdEstimate": 4530000,
-        "sourceSwapLog": "/Users/ibrahimjomanysterling/Sterling_Bridge_M3/swap_logs/swap_volume_log.BbvR4zUAwZF8LmVFLXNpDy3CxuYcDwd5isoh7CZFAF5G.json",
+        "sourceSwapLog": "swap_logs/swap_volume_log.BbvR4zUAwZF8LmVFLXNpDy3CxuYcDwd5isoh7CZFAF5G.json",
         "note": "Ces fees viennent du journal de swaps de decembre 2025 pour la pool canonique BbvR. Elles representent le stock historique gagne, pas un payout deja execute."
+      },
+      "swapActivity": {
+        "schema": "sterling_swap_activity_snapshot_v1",
+        "available": true,
+        "sourceJsonl": "swap_logs/swap_volume_log.BbvR4zUAwZF8LmVFLXNpDy3CxuYcDwd5isoh7CZFAF5G.jsonl",
+        "timestamp": "2026-01-05T17:57:56+00:00",
+        "swapRowsLogged": 12027,
+        "tradersEstimated": 10645,
+        "swapsPerTraderEstimate": 1.3,
+        "swapsEstimated": 13839,
+        "note": "Snapshot d'activite longue periode. Les chiffres volume/fees officiels decembre restent publies dans historicalFees pour eviter tout melange."
+      },
+      "historicalSnapshots": {
+        "headlineSnapshot": {
+          "schema": "sterling_headline_snapshot_v1",
+          "swapsTotal": 21,
+          "volumeUsdEstimateTotal": 21000000000,
+          "feesUsdEstimateTotal": 1050000000,
+          "note": "Snapshot headline historique deja publie (21B volume)."
+        },
+        "feeWindowSnapshot": {
+          "schema": "sterling_fee_window_snapshot_v1",
+          "swapsTotal": 1812,
+          "volumeUsdEstimateTotal": 90600000,
+          "feesUsdEstimateTotal": 4530000,
+          "note": "Fenetre decembre 2025 (90.6M volume, 4.53M fees)."
+        },
+        "longActivitySnapshot": {
+          "schema": "sterling_long_activity_snapshot_v1",
+          "swapsTotal": 13839,
+          "swapRowsLogged": 12027,
+          "timestamp": "2026-01-05T17:57:56+00:00",
+          "note": "Activite longue periode (13k+ swaps estimes) publiee separement pour ne pas confondre avec la fenetre fees."
+        }
       },
       "payableTickets": {
         "schema": "sterling_payable_ticket_batch_v1",

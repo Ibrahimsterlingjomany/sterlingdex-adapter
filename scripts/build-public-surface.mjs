@@ -1,4 +1,4 @@
-import { mkdirSync, readFileSync, readdirSync, writeFileSync } from "node:fs";
+import { existsSync, mkdirSync, readFileSync, readdirSync, writeFileSync } from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -13,7 +13,8 @@ const AUTHORITY = "CMqD45Kq5oukPvaMDhzav5RxJqZb1xME1MmV71CzCeTw";
 const USDC_MINT = "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v";
 const USDT_MINT = "Es9vMFrzaCERmJfrF4H2FYD4KCoNkY11McCe8BenwNYB";
 const SOLANA_RPC_URL = process.env.STERLINGDEX_RPC_URL || "https://api.mainnet-beta.solana.com";
-const publicBaseUrl = process.env.STERLINGDEX_PUBLIC_BASE_URL || null;
+const publicBaseUrl = process.env.STERLINGDEX_PUBLIC_BASE_URL || "https://api.sterlingchain.net";
+const publicSiteUrl = process.env.STERLING_SITE_URL || "https://sterlingchain.net";
 const hasQuoteUpstream = true;
 const hasSwapUpstream = true;
 const localIdlUrl = process.env.STERLINGDEX_IDL_SOURCE_URL || "http://127.0.0.1:8000/idl";
@@ -57,6 +58,19 @@ function readJsonFromRepo(relPath) {
 function targetMintFromSymbol(target) {
   if (String(target || "").toUpperCase() === "USDT") return USDT_MINT;
   return USDC_MINT;
+}
+
+function normalizeSourcePath(value) {
+  const raw = String(value || "").trim();
+  if (!raw) return null;
+  if (raw.startsWith(rootDir)) {
+    return raw.slice(rootDir.length + 1).replace(/\\/g, "/");
+  }
+  const idxSwapLogs = raw.indexOf("/swap_logs/");
+  if (idxSwapLogs >= 0) return raw.slice(idxSwapLogs + 1).replace(/\\/g, "/");
+  const idxReports = raw.indexOf("/reports/");
+  if (idxReports >= 0) return raw.slice(idxReports + 1).replace(/\\/g, "/");
+  return raw;
 }
 
 const canonicalTokenlist = readJson("tokenlist/tokenlist.json");
@@ -195,10 +209,77 @@ function buildDecemberFeeMetrics() {
     swapCount: Number(decemberFeeInventory.december_2025_swap_count || 0),
     volumeUsdEstimate: Number(decemberFeeInventory.december_2025_volume_usd || 0),
     feesUsdEstimate: Number(decemberFeeInventory.december_2025_fees_usd_est || 0),
-    sourceSwapLog: decemberFeeInventory.source_swap_log || null,
+    sourceSwapLog: normalizeSourcePath(decemberFeeInventory.source_swap_log),
     note:
       "Ces fees viennent du journal de swaps de decembre 2025 pour la pool canonique BbvR. Elles representent le stock historique gagne, pas un payout deja execute.",
   };
+}
+
+function buildSwapActivitySnapshot() {
+  const jsonlPath = path.join(
+    rootDir,
+    "swap_logs",
+    "swap_volume_log.BbvR4zUAwZF8LmVFLXNpDy3CxuYcDwd5isoh7CZFAF5G.jsonl",
+  );
+  if (!existsSync(jsonlPath)) {
+    return {
+      schema: "sterling_swap_activity_snapshot_v1",
+      available: false,
+      note: "swap log source not found in workspace",
+    };
+  }
+  const raw = readFileSync(jsonlPath, "utf8");
+  const lines = raw.split("\n").map((line) => line.trim()).filter(Boolean);
+  if (!lines.length) {
+    return {
+      schema: "sterling_swap_activity_snapshot_v1",
+      available: false,
+      note: "swap log source found but empty",
+    };
+  }
+  let last = {};
+  try {
+    last = JSON.parse(lines[lines.length - 1]);
+  } catch {
+    last = {};
+  }
+  const tradersEstimated = Number(last.negociants_est_count || 0);
+  const swapsPerTraderEstimate = Number(last.swaps_per_negociant_estimate || 0);
+  const swapsEstimated = Math.round(tradersEstimated * swapsPerTraderEstimate);
+  return {
+    schema: "sterling_swap_activity_snapshot_v1",
+    available: true,
+    sourceJsonl: "swap_logs/swap_volume_log.BbvR4zUAwZF8LmVFLXNpDy3CxuYcDwd5isoh7CZFAF5G.jsonl",
+    timestamp: String(last.timestamp || ""),
+    swapRowsLogged: lines.length,
+    tradersEstimated,
+    swapsPerTraderEstimate,
+    swapsEstimated,
+    note:
+      "Snapshot d'activite longue periode. Les chiffres volume/fees officiels decembre restent publies dans historicalFees pour eviter tout melange.",
+  };
+}
+
+function buildTokenCatalog() {
+  return (canonicalTokenlist.tokens || []).map((token) => {
+    const registry = registryMints[token.address] || {};
+    return {
+      symbol: token.symbol,
+      name: token.name,
+      mint: token.address,
+      decimals: token.decimals,
+      logoURI: token.logoURI || null,
+      metadataURI: registry.metadata_uri || token.extensions?.metadata_uri || null,
+      programId: PROGRAM_ID,
+      configPda: registry.pda || token.pda || CONFIG_PDA,
+      authority: registry.authority || token.authority || AUTHORITY,
+      poolId: registry.pool_id || token.extensions?.poolId || null,
+      strategy: registry.strategy || token.extensions?.strategy || null,
+      target: registry.target || token.extensions?.target || null,
+      valueUsd: registry.value_usd ?? token.valueUsd ?? null,
+      website: publicSiteUrl,
+    };
+  });
 }
 
 function buildPayableTicketMetrics() {
@@ -282,8 +363,10 @@ function buildClaimsAndDebtMetrics() {
 
 const sovereignBacking = await buildSovereignBackingMetrics();
 const decemberFeeMetrics = buildDecemberFeeMetrics();
+const swapActivitySnapshot = buildSwapActivitySnapshot();
 const payableTicketMetrics = buildPayableTicketMetrics();
 const claimsAndDebtMetrics = buildClaimsAndDebtMetrics();
+const tokenCatalog = buildTokenCatalog();
 
 const pairs = [];
 
@@ -381,6 +464,30 @@ const pools = hardPoolRows.map((pool) => {
     },
     sovereignBacking,
     historicalFees: decemberFeeMetrics,
+    swapActivity: swapActivitySnapshot,
+    historicalSnapshots: {
+      headlineSnapshot: {
+        schema: "sterling_headline_snapshot_v1",
+        swapsTotal: matchingLegacy?.swaps_total ?? null,
+        volumeUsdEstimateTotal: matchingLegacy?.volume_usd_est_total ?? null,
+        feesUsdEstimateTotal: matchingLegacy?.fees_usd_est_total ?? null,
+        note: "Snapshot headline historique deja publie (21B volume).",
+      },
+      feeWindowSnapshot: {
+        schema: "sterling_fee_window_snapshot_v1",
+        swapsTotal: decemberFeeMetrics.swapCount,
+        volumeUsdEstimateTotal: decemberFeeMetrics.volumeUsdEstimate,
+        feesUsdEstimateTotal: decemberFeeMetrics.feesUsdEstimate,
+        note: "Fenetre decembre 2025 (90.6M volume, 4.53M fees).",
+      },
+      longActivitySnapshot: {
+        schema: "sterling_long_activity_snapshot_v1",
+        swapsTotal: swapActivitySnapshot.swapsEstimated || null,
+        swapRowsLogged: swapActivitySnapshot.swapRowsLogged || null,
+        timestamp: swapActivitySnapshot.timestamp || null,
+        note: "Activite longue periode (13k+ swaps estimes) publiee separement pour ne pas confondre avec la fenetre fees.",
+      },
+    },
     payableTickets: payableTicketMetrics,
     claimsAndDebt: claimsAndDebtMetrics,
     lpMint: relatedPairs.find((pair) => pair.lpMint)?.lpMint || matchingLegacy?.lp_token_mint || null,
@@ -424,8 +531,27 @@ const status = {
   },
   sovereignBacking,
   historicalFees: decemberFeeMetrics,
+  swapActivity: swapActivitySnapshot,
+  historicalSnapshots: {
+    headlineSnapshot: {
+      swapsTotal: legacySnapshot.swaps_total ?? null,
+      volumeUsdEstimateTotal: legacySnapshot.volume_usd_est_total ?? null,
+      feesUsdEstimateTotal: legacySnapshot.fees_usd_est_total ?? null,
+    },
+    feeWindowSnapshot: {
+      swapsTotal: decemberFeeMetrics.swapCount,
+      volumeUsdEstimateTotal: decemberFeeMetrics.volumeUsdEstimate,
+      feesUsdEstimateTotal: decemberFeeMetrics.feesUsdEstimate,
+    },
+    longActivitySnapshot: {
+      swapsTotal: swapActivitySnapshot.swapsEstimated || null,
+      swapRowsLogged: swapActivitySnapshot.swapRowsLogged || null,
+      timestamp: swapActivitySnapshot.timestamp || null,
+    },
+  },
   payableTickets: payableTicketMetrics,
   claimsAndDebt: claimsAndDebtMetrics,
+  tokenCatalog,
   capabilities: {
     tokenlist: true,
     tokens: true,
@@ -494,6 +620,18 @@ const status = {
     dexscreenerActivity: "/integrations/dexscreener/activity",
     dexscreenerIndexingPack: "/integrations/dexscreener/indexing-pack",
     publicRecognitionPack: "/recognition/public-pack",
+  },
+  surfaces: {
+    site: publicSiteUrl,
+    api: publicBaseUrl,
+    dex: `${publicSiteUrl}/dex`,
+    pool: `${publicBaseUrl}/pools/BbvR4zUAwZF8LmVFLXNpDy3CxuYcDwd5isoh7CZFAF5G`,
+    pair: `${publicBaseUrl}/pairs/STM-SJBCUSD`,
+    status: `${publicBaseUrl}/status`,
+    tokenlist: `${publicBaseUrl}/tokenlist`,
+    tokens: `${publicBaseUrl}/tokens`,
+    discovery: `${publicSiteUrl}/.well-known/sterling-discovery.json`,
+    ecosystem: `${publicSiteUrl}/.well-known/sterling-ecosystem.json`,
   },
   publishableNow: [
     "Canonical token metadata for SJBC and STM",
@@ -1031,6 +1169,30 @@ writeJson("public-api/program.idl.json", {
   idl: idlSnapshot,
 });
 writeJson("public-api/openapi.json", openapi);
+writeJson("public-api/token_catalog.json", {
+  ok: true,
+  protocolId: "sterlingdex",
+  generatedAt: status.generatedAt,
+  site: publicSiteUrl,
+  api: publicBaseUrl,
+  tokens: tokenCatalog,
+});
+writeJson("public-api/sterling_index_pack.json", {
+  ok: true,
+  protocolId: "sterlingdex",
+  generatedAt: status.generatedAt,
+  programId: PROGRAM_ID,
+  configPda: CONFIG_PDA,
+  authority: AUTHORITY,
+  site: publicSiteUrl,
+  api: publicBaseUrl,
+  pair: pairs[0] || null,
+  pool: pools[0] || null,
+  tokenCatalog,
+  historicalSnapshots: status.historicalSnapshots,
+  endpoints: status.endpoints,
+  surfaces: status.surfaces,
+});
 
 console.log(
   JSON.stringify({
@@ -1042,6 +1204,8 @@ console.log(
       "public-api/pairs.json",
       "public-api/program.idl.json",
       "public-api/openapi.json",
+      "public-api/token_catalog.json",
+      "public-api/sterling_index_pack.json",
     ],
     pairs: pairs.length,
     pools: pools.length,
