@@ -21,6 +21,10 @@ It does **not** pretend that routing is already public if it is not wired yet.
 - `GET /pairs`
 - `POST /quote`
 - `POST /swap`
+- `GET /program/schema`
+- `GET /integrations/jupiter/rfq/tokens`
+- `POST /integrations/jupiter/rfq/quote`
+- `POST /integrations/jupiter/rfq/swap`
 - `GET /openapi.json`
 
 `/pairs` is kept as a compatibility route, but it describes bridge-backed
@@ -45,9 +49,45 @@ Default local URL:
 - `STERLINGDEX_PUBLIC_BASE_URL`
 - `STERLING_PUBLIC_QUOTE_UPSTREAM_URL`
 - `STERLING_PUBLIC_SWAP_UPSTREAM_URL`
+- `JUPITER_RFQ_MAKER_KEYPAIR_PATH`
+- `JUPITER_RFQ_API_KEY`
+- `JUPITER_RFQ_SIMULATE_SWAP`
+- `JUPITER_RFQ_SEND_TRANSACTION`
+- `JUPITER_RFQ_SWAP_MODE`
 
 If the two upstream variables are not configured, `POST /quote` and `POST /swap`
 return a clear `501` response instead of a fake quote.
+
+## Jupiter RFQ
+
+SterlingDEX now exposes a Jupiter RFQ compatible webhook surface:
+
+- `GET /integrations/jupiter/rfq/tokens`
+- `POST /integrations/jupiter/rfq/quote`
+- `POST /integrations/jupiter/rfq/swap`
+
+`JUPITER_RFQ_SWAP_MODE`:
+- `toolkit_compat`: remplace un slot de signature comme le sample server officiel Jupiter, utile pour acceptance tests et onboarding RFQ
+- `strict`: exige une transaction reelle signable/simulable par le maker avant acceptation
+
+Important:
+- en mode `toolkit_compat`, la valeur `txSignature` renvoyee par `/integrations/jupiter/rfq/swap` ne doit pas etre interpretee comme une transaction Solana confirmee de settlement.
+- elle sert a prouver la compatibilite du webhook RFQ avec Jupiter et la capacite du maker a signer selon le flux attendu.
+
+The quote and swap routes follow the Jupiter RFQ webhook contract:
+
+- quote supports `exactIn` and `exactOut` on the canonical `STM/SJBC` pair
+- swap accepts a base64 Jupiter RFQ transaction
+- the maker keypair signs the transaction
+- the adapter can simulate the signed transaction before answering
+- optional webhook auth is supported via `X-API-KEY`
+
+By default, swap runs in `maker_sign_only` mode:
+
+- the transaction is signed by the maker
+- the transaction is simulated
+- the response is `accepted` if signing/simulation succeeds
+- on-chain broadcast is only enabled if `JUPITER_RFQ_SEND_TRANSACTION=true`
 
 Build order matters: the generated `public-api/status.json` and `openapi.json`
 read the public env at build time. In production, the bundled `systemd`

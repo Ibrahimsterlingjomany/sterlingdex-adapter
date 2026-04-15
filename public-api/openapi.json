@@ -3,7 +3,7 @@
   "info": {
     "title": "SterlingDEX Public Surface",
     "version": "0.1.0",
-    "description": "Minimal public protocol surface for SterlingDEX on Solana."
+    "description": "Surface publique canonique de SterlingDEX pour la paire BbvR / STM / SJBC, avec preuve de pool, quote standard et swap intent public."
   },
   "servers": [
     {
@@ -41,9 +41,110 @@
         }
       }
     },
+    "/tokens": {
+      "get": {
+        "summary": "Canonical SterlingDEX token resources",
+        "description": "Expose les tokens publics avec leurs roles, relations pool/pair et sources de verite publiques.",
+        "responses": {
+          "200": {
+            "description": "Token resources JSON"
+          }
+        }
+      }
+    },
+    "/tokens/{mint}": {
+      "get": {
+        "summary": "Canonical SterlingDEX token resource",
+        "description": "Expose un token public unique, avec son role, ses relations canoniques et ses endpoints de preuve.",
+        "parameters": [
+          {
+            "name": "mint",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Detailed token resource"
+          },
+          "404": {
+            "description": "Unknown token mint"
+          }
+        }
+      }
+    },
+    "/program/schema": {
+      "get": {
+        "summary": "Public SterlingDEX program schema",
+        "description": "Expose un schema public du programme et de la pool canonique pour les integrateurs, en supplement de l'IDL prive qui n'expose pas encore les comptes/types complets.",
+        "responses": {
+          "200": {
+            "description": "Program schema JSON"
+          }
+        }
+      }
+    },
+    "/program/idl": {
+      "get": {
+        "summary": "Public SterlingDEX IDL snapshot",
+        "description": "Expose le snapshot public actuel de l'IDL servi par 8000, utile pour les parseurs et integrateurs.",
+        "responses": {
+          "200": {
+            "description": "IDL snapshot JSON"
+          }
+        }
+      }
+    },
+    "/integrations/jupiter/metis/amm-spec": {
+      "get": {
+        "summary": "Jupiter Metis AMM integration spec for SterlingDEX",
+        "description": "Expose le mapping explicite entre la pool canonique SterlingDEX et le trait Amm attendu par Jupiter Metis.",
+        "responses": {
+          "200": {
+            "description": "Jupiter Metis AMM spec JSON"
+          }
+        }
+      }
+    },
+    "/integrations/jupiter/metis/market": {
+      "get": {
+        "summary": "Jupiter Metis market params",
+        "description": "Expose un objet de type market/params pour aider une implementation Amm Jupiter a reconstruire le contexte du marche SterlingDEX.",
+        "responses": {
+          "200": {
+            "description": "Jupiter Metis market JSON"
+          }
+        }
+      }
+    },
+    "/integrations/jupiter/metis/accounts-to-update": {
+      "get": {
+        "summary": "Jupiter Metis accounts to update",
+        "description": "Expose la liste canonique des comptes a mettre en cache et a rafraichir pour quote/update dans une implementation Amm Jupiter.",
+        "responses": {
+          "200": {
+            "description": "Accounts to update JSON"
+          }
+        }
+      }
+    },
+    "/registry/canonical": {
+      "get": {
+        "summary": "Canonical machine-readable SterlingDEX registry bundle",
+        "description": "Bundle machine-readable unique reliant programme, tokens, pair, pool, preuves, quote, swap et integrations publiques.",
+        "responses": {
+          "200": {
+            "description": "Canonical registry bundle JSON"
+          }
+        }
+      }
+    },
     "/pools": {
       "get": {
-        "summary": "Settlement bridge registry",
+        "summary": "Canonical public pool surface",
         "responses": {
           "200": {
             "description": "Pool registry JSON"
@@ -51,9 +152,30 @@
         }
       }
     },
+    "/pools/{poolId}": {
+      "get": {
+        "summary": "Canonical public pool resource",
+        "description": "Expose la pool canonique comme entite DEX publique unique, avec LP, vaults, reserves, fee model et endpoints associes.",
+        "parameters": [
+          {
+            "name": "poolId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Detailed pool resource"
+          }
+        }
+      }
+    },
     "/pairs": {
       "get": {
-        "summary": "Bridge target registry compatibility surface",
+        "summary": "Canonical public pair surface",
         "responses": {
           "200": {
             "description": "Pair registry JSON"
@@ -61,9 +183,31 @@
         }
       }
     },
+    "/pairs/{pairId}": {
+      "get": {
+        "summary": "Canonical public pair resource",
+        "description": "Expose la paire canonique comme ressource DEX publique, avec mints, reserves, LP, fee model, endpoints quote/swap et source de verite.",
+        "parameters": [
+          {
+            "name": "pairId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Detailed pair resource"
+          }
+        }
+      }
+    },
     "/quote": {
       "post": {
-        "summary": "Request a bridge-backed Sterling quote",
+        "summary": "Request a canonical SterlingDEX pool quote",
+        "description": "amount et expected_out sont exposes en raw et en UI. Le quote est un test de swap, pas la liquidite totale de la pool.",
         "requestBody": {
           "required": true,
           "content": {
@@ -71,6 +215,7 @@
               "schema": {
                 "type": "object",
                 "required": [
+                  "inputMint",
                   "amount"
                 ],
                 "properties": {
@@ -78,6 +223,9 @@
                     "type": "string"
                   },
                   "inputMint": {
+                    "type": "string"
+                  },
+                  "poolId": {
                     "type": "string"
                   },
                   "target": {
@@ -106,7 +254,7 @@
         },
         "responses": {
           "200": {
-            "description": "Quote response"
+            "description": "Standard quote response with standard_quote schema"
           },
           "501": {
             "description": "Public quote upstream not configured yet"
@@ -114,9 +262,246 @@
         }
       }
     },
+    "/integrations/jupiter/rfq": {
+      "get": {
+        "summary": "Jupiter RFQ base discovery endpoint",
+        "description": "Expose le point d'entree de decouverte de la surface RFQ publique SterlingDEX et liste les sous-routes utilisables par Jupiter.",
+        "responses": {
+          "200": {
+            "description": "Jupiter RFQ discovery payload"
+          },
+          "401": {
+            "description": "Missing or invalid X-API-KEY when protection is enabled"
+          }
+        }
+      }
+    },
+    "/integrations/jupiter/rfq/tokens": {
+      "get": {
+        "summary": "Jupiter RFQ compatible token list",
+        "description": "Expose la liste minimale des mints supportes par la surface RFQ publique SterlingDEX. Supporte X-API-KEY si configure.",
+        "responses": {
+          "200": {
+            "description": "Array of token mint strings"
+          },
+          "401": {
+            "description": "Missing or invalid X-API-KEY"
+          }
+        }
+      }
+    },
+    "/integrations/jupiter/rfq/quote": {
+      "post": {
+        "summary": "Jupiter RFQ compatible quote",
+        "description": "Expose un quote compatible avec le schema RFQ Jupiter pour la paire canonique STM/SJBC en exactIn et exactOut.",
+        "responses": {
+          "200": {
+            "description": "Jupiter RFQ QuoteResponse compatible payload"
+          },
+          "400": {
+            "description": "Malformed quote request"
+          },
+          "401": {
+            "description": "Missing or invalid X-API-KEY"
+          },
+          "404": {
+            "description": "Unsupported pair, unsupported quote mode or no positive quote for this size"
+          }
+        }
+      }
+    },
+    "/integrations/openocean/source/status": {
+      "get": {
+        "summary": "OpenOcean source adapter status",
+        "description": "Expose l'etat du front OpenOcean avec la separation explicite entre 1492 cerveau SterlingChain et 8000 surface SterlingDEX.",
+        "responses": {
+          "200": {
+            "description": "OpenOcean source adapter status JSON"
+          }
+        }
+      }
+    },
+    "/integrations/openocean/source/market": {
+      "get": {
+        "summary": "OpenOcean source adapter market bundle",
+        "description": "Expose la paire, la pool, la fee model et les endpoints source adapter pour aider OpenOcean a onboarder SterlingDEX comme source Solana custom.",
+        "responses": {
+          "200": {
+            "description": "OpenOcean source market JSON"
+          }
+        }
+      }
+    },
+    "/integrations/openocean/source/pairs": {
+      "get": {
+        "summary": "OpenOcean source adapter pairs",
+        "description": "Expose la paire canonique STM/SJBC dans un shape lisible par un front d'integration source.",
+        "responses": {
+          "200": {
+            "description": "OpenOcean source pairs JSON"
+          }
+        }
+      }
+    },
+    "/integrations/openocean/source/tokenList": {
+      "get": {
+        "summary": "OpenOcean-style token list for SterlingDEX",
+        "description": "Expose un tokenList aligne sur le shape OpenOcean v3 pour faciliter la revue d'ingestion de la source.",
+        "responses": {
+          "200": {
+            "description": "OpenOcean-style tokenList JSON"
+          }
+        }
+      }
+    },
+    "/integrations/openocean/source/dexList": {
+      "get": {
+        "summary": "OpenOcean-style dex list for SterlingDEX source",
+        "description": "Expose un dexList minimal pointant vers SterlingDEX comme source custom Solana.",
+        "responses": {
+          "200": {
+            "description": "OpenOcean-style dexList JSON"
+          }
+        }
+      }
+    },
+    "/integrations/openocean/source/quote": {
+      "get": {
+        "summary": "OpenOcean-style source quote",
+        "description": "Expose un quote aligne sur le shape OpenOcean v3, tout en restant strictement adosse a la verite canonique 1492 plus 8000.",
+        "parameters": [
+          {
+            "name": "chain",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "inTokenAddress",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "outTokenAddress",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "amount",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "gasPrice",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "slippage",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OpenOcean-style quote JSON"
+          },
+          "400": {
+            "description": "Malformed quote request"
+          },
+          "404": {
+            "description": "Unsupported pair or no positive quote"
+          }
+        }
+      }
+    },
+    "/proof/pools/{poolId}": {
+      "get": {
+        "summary": "Proof surface for the canonical public pool",
+        "description": "Expose la preuve live des vaults, des reserves visibles et des references canoniques de la pool BbvR.",
+        "parameters": [
+          {
+            "name": "poolId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Canonical pool proof payload"
+          }
+        }
+      }
+    },
+    "/proof/pairs/{pairId}": {
+      "get": {
+        "summary": "Proof surface for the canonical public pair",
+        "description": "Expose la preuve live de la paire STM/SJBC: mints, vaults, reserves, LP, fee model et endpoints canoniques.",
+        "parameters": [
+          {
+            "name": "pairId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Canonical pair proof payload"
+          }
+        }
+      }
+    },
+    "/proof/tokens/{mint}": {
+      "get": {
+        "summary": "Proof surface for a public Sterling token",
+        "description": "Expose la preuve publique d'un token Sterling: metadata, logo, role canonique et relation vers la pair/pool si applicable.",
+        "parameters": [
+          {
+            "name": "mint",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Canonical token proof payload"
+          },
+          "404": {
+            "description": "Unknown token mint"
+          }
+        }
+      }
+    },
     "/swap": {
       "post": {
-        "summary": "Request a Sterling bridge or settlement route",
+        "summary": "Request a canonical SterlingDEX swap intent",
+        "description": "Expose un intent de swap public et sa route canonique. La surface publique documente le swap, mais l'execution on-chain reste controlee.",
         "requestBody": {
           "required": true,
           "content": {
@@ -124,14 +509,18 @@
               "schema": {
                 "type": "object",
                 "required": [
+                  "inputMint",
                   "amount",
-                  "userPublicKey"
+                  "poolId"
                 ],
                 "properties": {
                   "mint": {
                     "type": "string"
                   },
                   "inputMint": {
+                    "type": "string"
+                  },
+                  "poolId": {
                     "type": "string"
                   },
                   "target": {
@@ -147,9 +536,6 @@
                   "amount": {
                     "type": "string"
                   },
-                  "userPublicKey": {
-                    "type": "string"
-                  },
                   "slippageBps": {
                     "type": "number"
                   }
@@ -160,10 +546,173 @@
         },
         "responses": {
           "200": {
-            "description": "Swap route response"
+            "description": "Public swap intent response with standard_swap schema"
           },
           "501": {
             "description": "Public swap upstream not configured yet"
+          }
+        }
+      }
+    },
+    "/integrations/jupiter/rfq/swap": {
+      "post": {
+        "summary": "Jupiter RFQ compatible swap response",
+        "description": "Expose une reponse RFQ Jupiter compatible. SterlingDEX signe la transaction maker, la simule, puis repond accepted ou rejected. Le broadcast on-chain reste optionnel via configuration.",
+        "responses": {
+          "200": {
+            "description": "Jupiter RFQ SwapResponse compatible payload"
+          },
+          "400": {
+            "description": "Malformed swap request"
+          },
+          "401": {
+            "description": "Missing or invalid X-API-KEY"
+          }
+        }
+      }
+    },
+    "/integrations/openocean/source/swap_quote": {
+      "get": {
+        "summary": "OpenOcean-style source swap quote",
+        "description": "Expose un swap_quote aligne sur le shape OpenOcean v3, mais sans pretendre construire publiquement la transaction. L'execution reste controlee par 8000 ou un partenaire.",
+        "parameters": [
+          {
+            "name": "chain",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "inTokenAddress",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "outTokenAddress",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "amount",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "account",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "sender",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "referrer",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "gasPrice",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "slippage",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OpenOcean-style swap_quote JSON"
+          },
+          "400": {
+            "description": "Malformed request"
+          },
+          "404": {
+            "description": "Unsupported pair or no positive quote"
+          }
+        }
+      }
+    },
+    "/integrations/dexscreener/status": {
+      "get": {
+        "summary": "DexScreener indexing status for SterlingDEX",
+        "description": "Expose l'etat exact du front DexScreener avec la separation explicite entre 1492 cerveau SterlingChain, 8000 surface SterlingDEX et le verrou restant cote indexer DexScreener.",
+        "responses": {
+          "200": {
+            "description": "DexScreener status JSON"
+          }
+        }
+      }
+    },
+    "/integrations/dexscreener/pair": {
+      "get": {
+        "summary": "DexScreener-style pair signal for BbvR",
+        "description": "Expose un signal de paire lisible par des tiers pour la pool canonique BbvR et la paire STM/SJBC, sans pretendre remplacer l'indexer blockchain DexScreener.",
+        "responses": {
+          "200": {
+            "description": "DexScreener-style pair signal JSON"
+          }
+        }
+      }
+    },
+    "/integrations/dexscreener/activity": {
+      "get": {
+        "summary": "DexScreener-style activity signal for BbvR",
+        "description": "Expose des signaux publics d'activite et de volume relies a BbvR pour aider une revue d'indexation tierce.",
+        "responses": {
+          "200": {
+            "description": "DexScreener-style activity signal JSON"
+          }
+        }
+      }
+    },
+    "/integrations/dexscreener/indexing-pack": {
+      "get": {
+        "summary": "DexScreener indexing handoff pack",
+        "description": "Expose un pack unique reliant programme, pair, pool, reserves, activity et preuves publiques pour accelerer une revue d'indexation DexScreener.",
+        "responses": {
+          "200": {
+            "description": "DexScreener indexing pack JSON"
+          }
+        }
+      }
+    },
+    "/recognition/public-pack": {
+      "get": {
+        "summary": "Public recognition pack",
+        "description": "Expose un pack public unique pour reviewers et indexeurs, reliant 1492, 8000, BbvR, STM/SJBC, les preuves publiques et l'etat des fronts externes.",
+        "responses": {
+          "200": {
+            "description": "Public recognition pack JSON"
           }
         }
       }

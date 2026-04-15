@@ -1,0 +1,42 @@
+{
+  "schema": "sterling_openocean_source_manifest_v1",
+  "name": "SterlingDEX OpenOcean Source Adapter",
+  "status": "ready_for_source_onboarding",
+  "ecosystem": "SterlingChain",
+  "runtime_roles": {
+    "1492": "SterlingChain brain / orchestration / canonical runtime truth",
+    "8000": "SterlingDEX quote / swap / Solana execution surface"
+  },
+  "canonical_target": {
+    "programId": "7v9sLrk92NNLLUfXLJw3o7MycZNvwsTK6kLWfWb8vcVA",
+    "configPda": "Htopqis52g8nGvvkpnG7Z7XZhgBpqtN9huqUyk6LH9gB",
+    "authority": "CMqD45Kq5oukPvaMDhzav5RxJqZb1xME1MmV71CzCeTw",
+    "poolId": "BbvR4zUAwZF8LmVFLXNpDy3CxuYcDwd5isoh7CZFAF5G",
+    "pairId": "STM-SJBCUSD",
+    "pair": "STM/SJBC",
+    "baseMint": "9kued2JXgVk5dzvtipsTdXfBMWihy1E55TwMiXchCoAb",
+    "quoteMint": "EsNo61QodqHCRjkTGJDeqyK7N4Hunip5PaTYbpPZEsG2",
+    "baseVault": "3mRYBWgBKnQuUyvVDcYFqSeNoQTujTsFGra3GWLof9av",
+    "quoteVault": "5z4brtXmcDBhPKLk9YoiZE7fqaourBk26jBuAUHqZDN9",
+    "lpMint": "DnepvMafJZzDtDcevrqbMUCmDqdNhBLjCTUu1xhR4HeL",
+    "feeBps": 500
+  },
+  "adapter_endpoints": {
+    "status": "/integrations/openocean/source/status",
+    "market": "/integrations/openocean/source/market",
+    "pairs": "/integrations/openocean/source/pairs",
+    "tokenList": "/integrations/openocean/source/tokenList",
+    "dexList": "/integrations/openocean/source/dexList",
+    "quote": "/integrations/openocean/source/quote",
+    "swapQuote": "/integrations/openocean/source/swap_quote"
+  },
+  "sourceOfTruth": {
+    "registry": "/registry/canonical",
+    "pair": "/pairs/STM-SJBCUSD",
+    "pool": "/pools/BbvR4zUAwZF8LmVFLXNpDy3CxuYcDwd5isoh7CZFAF5G",
+    "proofPool": "/proof/pools/BbvR4zUAwZF8LmVFLXNpDy3CxuYcDwd5isoh7CZFAF5G",
+    "quote": "/quote",
+    "swap": "/swap"
+  },
+  "remainingExternalBlocker": "OpenOcean still needs to onboard or whitelist SterlingDEX as a custom Solana source in their routing pipeline."
+}

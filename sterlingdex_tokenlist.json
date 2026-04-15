@@ -1,67 +1,50 @@
 {
-  "name": "Sterlingdex Token List",
+  "name": "SterlingDEX Sovereign Token List",
+  "timestamp": "2026-03-26T06:39:42.714977Z",
+  "version": {
+    "major": 1,
+    "minor": 1,
+    "patch": 0
+  },
   "tags": {
-    "lp-token": {
-      "name": "LP Token",
-      "description": "Liquidity Pool Tokens"
-    },
-    "dex": {
-      "name": "DEX",
-      "description": "Tokens associated with decentralized exchanges"
-    },
     "sterling": {
       "name": "SterlingChain",
-      "description": "Sovereign infrastructure via Sterling"
+      "description": "Sovereign verified token"
+    },
+    "verified": {
+      "name": "Verified",
+      "description": "Backed by value registry"
+    },
+    "lp-token": {
+      "name": "LP Token",
+      "description": "Liquidity pool token"
     },
     "cashback": {
       "name": "Cashback",
-      "description": "Token with exit cashback policy"
+      "description": "Cashback policy token"
     }
   },
-  "timestamp": "2026-01-03T00:00:00+00:00",
-  "version": {
-    "major": 1,
-    "minor": 0,
-    "patch": 0
+  "meta": {
+    "program_id": "7v9sLrk92NNLLUfXLJw3o7MycZNvwsTK6kLWfWb8vcVA",
+    "config_pda": "Htopqis52g8nGvvkpnG7Z7XZhgBpqtN9huqUyk6LH9gB",
+    "authority": "CMqD45Kq5oukPvaMDhzav5RxJqZb1xME1MmV71CzCeTw",
+    "pool_id_default": "BbvR4zUAwZF8LmVFLXNpDy3CxuYcDwd5isoh7CZFAF5G",
+    "registry_path": "/Users/ibrahimjomanysterling/Sterling_Bridge_M3_local/chain/value_registry.json",
+    "registry_url": "https://sterlingchain.net/.well-known/sterling-ecosystem.json",
+    "pairs_url": "https://api.sterlingchain.net/pairs",
+    "pools_url": "https://api.sterlingchain.net/pools",
+    "discovery_url": "https://sterlingchain.net/.well-known/sterling-discovery.json",
+    "site_url": "https://sterlingchain.net",
+    "public_scope": "STM,SJBC,SJBC3,SDLP,BbvR"
   },
   "tokens": [
     {
       "chainId": 101,
-      "address": "EsNo61QodqHCRjkTGJDeqyK7N4Hunip5PaTYbpPZEsG2",
-      "symbol": "SJBC",
-      "name": "SJBC USD",
-      "decimals": 9,
-      "logoURI": "https://white-persistent-silkworm-971.mypinata.cloud/ipfs/bafybeiboqchb4cq2pcx3zez6cv7gilmzpjmli2iuavsjfffdzayk57lwie",
-      "tags": [
-        "sterling"
-      ],
-      "extensions": {
-        "metadata_uri": "https://white-persistent-silkworm-971.mypinata.cloud/ipfs/bafkreidlzlxs765cj4vqcd4j2vd55oxeebwmr4qbkloeh33i7qqnjjwdrq",
-        "external_url": "https://solscan.io/token/EsNo61QodqHCRjkTGJDeqyK7N4Hunip5PaTYbpPZEsG2"
-      }
-    },
-    {
-      "chainId": 101,
-      "address": "9kued2JXgVk5dzvtipsTdXfBMWihy1E55TwMiXchCoAb",
-      "symbol": "STM",
-      "name": "Sterling Mint",
-      "decimals": 9,
-      "logoURI": "https://white-persistent-silkworm-971.mypinata.cloud/ipfs/bafkreihkmmtbwboplaqkusxutvj6nvri7zbfnk476oz3gsk26dniyfbv2q",
-      "tags": [
-        "sterling"
-      ],
-      "extensions": {
-        "metadata_uri": "https://white-persistent-silkworm-971.mypinata.cloud/ipfs/bafkreigieiayj3zwzgfjvgcsrkagzykiqo3obe6o556v25mrsnwjyc5hkq",
-        "external_url": "https://solscan.io/token/9kued2JXgVk5dzvtipsTdXfBMWihy1E55TwMiXchCoAb"
-      }
-    },
-    {
-      "chainId": 101,
       "address": "DnepvMafJZzDtDcevrqbMUCmDqdNhBLjCTUu1xhR4HeL",
       "symbol": "SDLP",
-      "name": "Sterlingdex LP Token",
+      "name": "SterlingDEX LP Token",
       "decimals": 6,
-      "logoURI": "https://white-persistent-silkworm-971.mypinata.cloud/ipfs/bafybeifh3p5nhvaici6xhlu2s5zuj3iol5vklwv5ujtjt6kajehb6falem",
+      "logoURI": "https://sterlingchain.net/token-assets/sdlp.jpg",
       "tags": [
         "lp-token",
         "dex",
@@ -69,15 +52,177 @@
         "cashback"
       ],
       "extensions": {
-        "website": "https://sterlingdex.org",
-        "realPegUSD": true,
-        "cashbackBacked": true,
-        "sovereignControlled": true,
-        "treasuryUSD": 174000,
         "origin": "SterlingChain",
-        "poolAddress": "BbvR4zUAwZF8LmVFLXNpDy3CxuYcDwd5isoh7CZFAF5G",
-        "instagram": "@Label92saintgobain"
-      }
+        "programId": "7v9sLrk92NNLLUfXLJw3o7MycZNvwsTK6kLWfWb8vcVA",
+        "configPda": "Htopqis52g8nGvvkpnG7Z7XZhgBpqtN9huqUyk6LH9gB",
+        "authority": "CMqD45Kq5oukPvaMDhzav5RxJqZb1xME1MmV71CzCeTw",
+        "poolId": "BbvR4zUAwZF8LmVFLXNpDy3CxuYcDwd5isoh7CZFAF5G",
+        "lpMint": "DnepvMafJZzDtDcevrqbMUCmDqdNhBLjCTUu1xhR4HeL",
+        "proofSource": "LP_DEFAULT",
+        "website": "https://sterlingchain.net",
+        "tokenlistUrl": "https://api.sterlingchain.net/tokenlist",
+        "registryUrl": "https://sterlingchain.net/.well-known/sterling-ecosystem.json",
+        "pairsUrl": "https://api.sterlingchain.net/pairs",
+        "poolsUrl": "https://api.sterlingchain.net/pools",
+        "discoveryUrl": "https://sterlingchain.net/.well-known/sterling-discovery.json",
+        "programProfileUrl": "https://sterlingchain.net/.well-known/sterling-program.json",
+        "ecosystemProfileUrl": "https://sterlingchain.net/.well-known/sterling-ecosystem.json",
+        "metadata_uri": "https://sterlingchain.net/token-assets/sdlp.metadata.json"
+      },
+      "pda": "Htopqis52g8nGvvkpnG7Z7XZhgBpqtN9huqUyk6LH9gB",
+      "authority": "CMqD45Kq5oukPvaMDhzav5RxJqZb1xME1MmV71CzCeTw"
+    },
+    {
+      "chainId": 101,
+      "address": "EsNo61QodqHCRjkTGJDeqyK7N4Hunip5PaTYbpPZEsG2",
+      "symbol": "SJBC",
+      "name": "SJBC USD",
+      "decimals": 9,
+      "tags": [
+        "sterling",
+        "verified"
+      ],
+      "extensions": {
+        "origin": "SterlingChain",
+        "programId": "7v9sLrk92NNLLUfXLJw3o7MycZNvwsTK6kLWfWb8vcVA",
+        "configPda": "Htopqis52g8nGvvkpnG7Z7XZhgBpqtN9huqUyk6LH9gB",
+        "authority": "CMqD45Kq5oukPvaMDhzav5RxJqZb1xME1MmV71CzCeTw",
+        "poolId": "BbvR4zUAwZF8LmVFLXNpDy3CxuYcDwd5isoh7CZFAF5G",
+        "proofSource": "VALUE_REGISTRY",
+        "website": "https://sterlingchain.net",
+        "tokenlistUrl": "https://api.sterlingchain.net/tokenlist",
+        "registryUrl": "https://sterlingchain.net/.well-known/sterling-ecosystem.json",
+        "pairsUrl": "https://api.sterlingchain.net/pairs",
+        "poolsUrl": "https://api.sterlingchain.net/pools",
+        "discoveryUrl": "https://sterlingchain.net/.well-known/sterling-discovery.json",
+        "programProfileUrl": "https://sterlingchain.net/.well-known/sterling-program.json",
+        "ecosystemProfileUrl": "https://sterlingchain.net/.well-known/sterling-ecosystem.json",
+        "metadata_uri": "https://sterlingchain.net/token-assets/sjbc.metadata.json",
+        "strategy": "PRIVATE_POOL",
+        "target": "USDC",
+        "valueUsd": 1.0,
+        "registryUpdatedAt": "2026-02-27T01:31:15.895885Z",
+        "external_url": "https://solscan.io/token/EsNo61QodqHCRjkTGJDeqyK7N4Hunip5PaTYbpPZEsG2",
+        "lp_mint": "DnepvMafJZzDtDcevrqbMUCmDqdNhBLjCTUu1xhR4HeL",
+        "lp_logo_uri": "https://white-persistent-silkworm-971.mypinata.cloud/ipfs/bafybeifh3p5nhvaici6xhlu2s5zuj3iol5vklwv5ujtjt6kajehb6falem",
+        "currency": "USD",
+        "price_usd_target": "1.00",
+        "peg_info": "1 SJBC USD = 1 USD (peg 1:1).",
+        "supply_max": "18446744073709551615",
+        "supply_circulating": "18446744073709551615",
+        "flags": {
+          "true_cash": true,
+          "cash_backed": true,
+          "real_peg": true,
+          "sovereign": true
+        },
+        "status": "active"
+      },
+      "pda": "Htopqis52g8nGvvkpnG7Z7XZhgBpqtN9huqUyk6LH9gB",
+      "authority": "CMqD45Kq5oukPvaMDhzav5RxJqZb1xME1MmV71CzCeTw",
+      "valueUsd": 1.0,
+      "logoURI": "https://sterlingchain.net/token-assets/sjbc.png"
+    },
+    {
+      "chainId": 101,
+      "address": "FwCp9JvCxtC88rJNWJSZFcoSUDW8NuSzKKSwt7MPF9of",
+      "symbol": "SJBC3",
+      "name": "SJBC3",
+      "decimals": 9,
+      "tags": [
+        "sterling",
+        "verified"
+      ],
+      "extensions": {
+        "origin": "SterlingChain",
+        "programId": "7v9sLrk92NNLLUfXLJw3o7MycZNvwsTK6kLWfWb8vcVA",
+        "configPda": "Htopqis52g8nGvvkpnG7Z7XZhgBpqtN9huqUyk6LH9gB",
+        "authority": "CMqD45Kq5oukPvaMDhzav5RxJqZb1xME1MmV71CzCeTw",
+        "poolId": "Hj4dwRe2ZbmPasT7412LdhcTANEsXkjuG2eh4uUgUQNq",
+        "proofSource": "VALUE_REGISTRY",
+        "website": "https://sterlingchain.net",
+        "tokenlistUrl": "https://api.sterlingchain.net/tokenlist",
+        "registryUrl": "https://sterlingchain.net/.well-known/sterling-ecosystem.json",
+        "pairsUrl": "https://api.sterlingchain.net/pairs",
+        "poolsUrl": "https://api.sterlingchain.net/pools",
+        "discoveryUrl": "https://sterlingchain.net/.well-known/sterling-discovery.json",
+        "programProfileUrl": "https://sterlingchain.net/.well-known/sterling-program.json",
+        "ecosystemProfileUrl": "https://sterlingchain.net/.well-known/sterling-ecosystem.json",
+        "metadata_uri": "https://sterlingchain.net/token-assets/sjbc3.metadata.json",
+        "strategy": "PRIVATE_POOL",
+        "target": "USDC",
+        "valueUsd": 1.0,
+        "registryUpdatedAt": "2026-02-27T01:31:15.895901Z",
+        "external_url": "https://solscan.io/token/FwCp9JvCxtC88rJNWJSZFcoSUDW8NuSzKKSwt7MPF9of",
+        "currency": "USD",
+        "price_usd_target": "1.00",
+        "peg_info": "SJBC3 reste visible et indexable publiquement, mais n'est pas inclus dans la zone de liquidite active BbvR.",
+        "flags": {
+          "visible": true,
+          "listed": true,
+          "routable": false,
+          "sovereign": true
+        },
+        "status": "active"
+      },
+      "pda": "Htopqis52g8nGvvkpnG7Z7XZhgBpqtN9huqUyk6LH9gB",
+      "authority": "CMqD45Kq5oukPvaMDhzav5RxJqZb1xME1MmV71CzCeTw",
+      "valueUsd": 1.0,
+      "logoURI": "https://sterlingchain.net/token-assets/sjbc3.jpg"
+    },
+    {
+      "chainId": 101,
+      "address": "9kued2JXgVk5dzvtipsTdXfBMWihy1E55TwMiXchCoAb",
+      "symbol": "STM",
+      "name": "Sterling Mint",
+      "decimals": 9,
+      "tags": [
+        "sterling",
+        "verified"
+      ],
+      "extensions": {
+        "origin": "SterlingChain",
+        "programId": "7v9sLrk92NNLLUfXLJw3o7MycZNvwsTK6kLWfWb8vcVA",
+        "configPda": "Htopqis52g8nGvvkpnG7Z7XZhgBpqtN9huqUyk6LH9gB",
+        "authority": "CMqD45Kq5oukPvaMDhzav5RxJqZb1xME1MmV71CzCeTw",
+        "poolId": "BbvR4zUAwZF8LmVFLXNpDy3CxuYcDwd5isoh7CZFAF5G",
+        "proofSource": "VALUE_REGISTRY",
+        "website": "https://sterlingchain.net",
+        "tokenlistUrl": "https://api.sterlingchain.net/tokenlist",
+        "registryUrl": "https://sterlingchain.net/.well-known/sterling-ecosystem.json",
+        "pairsUrl": "https://api.sterlingchain.net/pairs",
+        "poolsUrl": "https://api.sterlingchain.net/pools",
+        "discoveryUrl": "https://sterlingchain.net/.well-known/sterling-discovery.json",
+        "programProfileUrl": "https://sterlingchain.net/.well-known/sterling-program.json",
+        "ecosystemProfileUrl": "https://sterlingchain.net/.well-known/sterling-ecosystem.json",
+        "metadata_uri": "https://sterlingchain.net/token-assets/stm.metadata.json",
+        "strategy": "PRIVATE_POOL",
+        "target": "USDC",
+        "valueUsd": 1.0,
+        "registryUpdatedAt": "2026-02-27T01:31:15.892642Z",
+        "external_url": "https://solscan.io/token/9kued2JXgVk5dzvtipsTdXfBMWihy1E55TwMiXchCoAb",
+        "lp_mint": "DnepvMafJZzDtDcevrqbMUCmDqdNhBLjCTUu1xhR4HeL",
+        "lp_logo_uri": "https://white-persistent-silkworm-971.mypinata.cloud/ipfs/bafybeifh3p5nhvaici6xhlu2s5zuj3iol5vklwv5ujtjt6kajehb6falem",
+        "currency": "STM",
+        "price_usd_target": "1.00",
+        "peg_info": "STM n'est pas le stable de reglement. Le prix vient de la pool STM/SJBC et des routes de liquidite externes.",
+        "supply_max": "18446744073709551615",
+        "supply_circulating": "18446744073709551615",
+        "flags": {
+          "market_asset": true,
+          "cash_backed": false,
+          "real_peg": false,
+          "sovereign": true
+        },
+        "hash_root": "3ebd780c45c34d54c661b2b3dbba331aa2832e65a9d6928cfa964d5c3f8d7241",
+        "hash_metadata": "37eb8465bc1fe51f461ff5a7e9fcdcc6cfed9d329026460dcdba24b91acd5105",
+        "status": "active",
+        "price_reference": "STM/SJBC:BbvR4zUAwZF8LmVFLXNpDy3CxuYcDwd5isoh7CZFAF5G"
+      },
+      "pda": "Htopqis52g8nGvvkpnG7Z7XZhgBpqtN9huqUyk6LH9gB",
+      "authority": "CMqD45Kq5oukPvaMDhzav5RxJqZb1xME1MmV71CzCeTw",
+      "valueUsd": 1.0,
+      "logoURI": "https://sterlingchain.net/token-assets/stm.jpg"
     }
   ]
 }

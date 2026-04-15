@@ -1,0 +1,40 @@
+{
+  "schema": "sterling_dexscreener_indexing_manifest_v1",
+  "name": "SterlingDEX DexScreener Indexing Front",
+  "status": "ready_for_public_indexing_review",
+  "ecosystem": "SterlingChain",
+  "runtime_roles": {
+    "1492": "SterlingChain brain / orchestration / canonical runtime truth",
+    "8000": "SterlingDEX quote / swap / Solana execution surface"
+  },
+  "canonical_target": {
+    "programId": "7v9sLrk92NNLLUfXLJw3o7MycZNvwsTK6kLWfWb8vcVA",
+    "configPda": "Htopqis52g8nGvvkpnG7Z7XZhgBpqtN9huqUyk6LH9gB",
+    "authority": "CMqD45Kq5oukPvaMDhzav5RxJqZb1xME1MmV71CzCeTw",
+    "poolId": "BbvR4zUAwZF8LmVFLXNpDy3CxuYcDwd5isoh7CZFAF5G",
+    "pairId": "STM-SJBCUSD",
+    "pair": "STM/SJBC",
+    "baseMint": "9kued2JXgVk5dzvtipsTdXfBMWihy1E55TwMiXchCoAb",
+    "quoteMint": "EsNo61QodqHCRjkTGJDeqyK7N4Hunip5PaTYbpPZEsG2",
+    "baseVault": "3mRYBWgBKnQuUyvVDcYFqSeNoQTujTsFGra3GWLof9av",
+    "quoteVault": "5z4brtXmcDBhPKLk9YoiZE7fqaourBk26jBuAUHqZDN9",
+    "lpMint": "DnepvMafJZzDtDcevrqbMUCmDqdNhBLjCTUu1xhR4HeL",
+    "feeBps": 500
+  },
+  "dexscreener_surfaces": {
+    "status": "/integrations/dexscreener/status",
+    "pair": "/integrations/dexscreener/pair",
+    "activity": "/integrations/dexscreener/activity",
+    "indexingPack": "/integrations/dexscreener/indexing-pack"
+  },
+  "sourceOfTruth": {
+    "registry": "/registry/canonical",
+    "pair": "/pairs/STM-SJBCUSD",
+    "pool": "/pools/BbvR4zUAwZF8LmVFLXNpDy3CxuYcDwd5isoh7CZFAF5G",
+    "proofPair": "/proof/pairs/STM-SJBCUSD",
+    "proofPool": "/proof/pools/BbvR4zUAwZF8LmVFLXNpDy3CxuYcDwd5isoh7CZFAF5G",
+    "quote": "/quote",
+    "swap": "/swap"
+  },
+  "remainingExternalBlocker": "DexScreener still needs native parser/indexer support or listing acceptance for the custom SterlingDEX program and pool."
+}

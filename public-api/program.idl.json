@@ -1,0 +1,1824 @@
+{
+  "schema": "sterling_program_idl_snapshot_v1",
+  "source": "http://127.0.0.1:8000/idl",
+  "generatedAt": "2026-04-15T01:05:05.364Z",
+  "idl": {
+    "ok": true,
+    "name": "sterling_amm",
+    "programId": "7v9sLrk92NNLLUfXLJw3o7MycZNvwsTK6kLWfWb8vcVA",
+    "instructions": [
+      {
+        "name": "initialize_config",
+        "accounts": [
+          "config",
+          "admin",
+          "systemProgram"
+        ],
+        "args": []
+      },
+      {
+        "name": "settle_payout_v3_safe_v2",
+        "accounts": [
+          "config",
+          "keeper",
+          "user",
+          "pool",
+          "payoutMint",
+          "ticket",
+          "systemProgram",
+          "rent"
+        ],
+        "args": [
+          {
+            "name": "nonce",
+            "type": "u64"
+          },
+          {
+            "name": "payoutKind",
+            "type": "u8"
+          },
+          {
+            "name": "mintIn",
+            "type": "publicKey"
+          },
+          {
+            "name": "amountIn",
+            "type": "u64"
+          },
+          {
+            "name": "usdMicros",
+            "type": "u64"
+          }
+        ]
+      },
+      {
+        "name": "request_protocol_fee_payout_usdc_v1",
+        "accounts": [
+          "config",
+          "keeper",
+          "user",
+          "pool",
+          "payoutMint",
+          "ticket",
+          "systemProgram",
+          "rent"
+        ],
+        "args": [
+          {
+            "name": "nonce",
+            "type": "u64"
+          },
+          {
+            "name": "mintIn",
+            "type": "publicKey"
+          },
+          {
+            "name": "amountIn",
+            "type": "u64"
+          },
+          {
+            "name": "usdMicros",
+            "type": "u64"
+          }
+        ]
+      },
+      {
+        "name": "reserve_authority_rebind",
+        "accounts": [
+          "config",
+          "admin",
+          "authorityMint",
+          "currentAuthorityBridgeVault",
+          "reserveTokenAccount",
+          "newAuthority",
+          "tokenProgram"
+        ],
+        "args": [
+          {
+            "name": "bridgeVaultBump",
+            "type": "u8"
+          }
+        ]
+      },
+      {
+        "name": "treasury_sweep_reserve",
+        "accounts": [
+          "config",
+          "admin",
+          "reserveTokenAccount",
+          "destinationTokenAccount",
+          "tokenProgram"
+        ],
+        "args": [
+          {
+            "name": "amountAtoms",
+            "type": "u64"
+          },
+          {
+            "name": "usdMicros",
+            "type": "u64"
+          }
+        ]
+      },
+      {
+        "name": "sovereign_redeem_to_usdc",
+        "accounts": [
+          "config",
+          "user",
+          "tokenMint",
+          "assetRegistry",
+          "userTokenAta",
+          "usdcCoffreAta",
+          "destinationUsdcAta",
+          "tokenProgram"
+        ],
+        "args": [
+          {
+            "name": "amountIn",
+            "type": "u64"
+          },
+          {
+            "name": "bankMetadata",
+            "type": "string"
+          }
+        ]
+      },
+      {
+        "name": "sovereign_convert_output_v1",
+        "accounts": [
+          "config",
+          "user",
+          "tokenProgram"
+        ],
+        "args": [
+          {
+            "name": "amountIn",
+            "type": "u64"
+          },
+          {
+            "name": "sourceKind",
+            "type": "u8"
+          },
+          {
+            "name": "finalOutputKind",
+            "type": "u8"
+          },
+          {
+            "name": "debtLotNonce",
+            "type": "u64"
+          },
+          {
+            "name": "bankMetadata",
+            "type": "string"
+          }
+        ]
+      },
+      {
+        "name": "request_protocol_fee_payout_usdc_v1_routed",
+        "accounts": [
+          "config",
+          "keeper",
+          "user",
+          "pool",
+          "payoutMint",
+          "ticket",
+          "systemProgram",
+          "rent"
+        ],
+        "args": [
+          {
+            "name": "nonce",
+            "type": "u64"
+          },
+          {
+            "name": "mintIn",
+            "type": "publicKey"
+          },
+          {
+            "name": "amountIn",
+            "type": "u64"
+          },
+          {
+            "name": "usdMicros",
+            "type": "u64"
+          },
+          {
+            "name": "routeHint",
+            "type": "u8"
+          }
+        ]
+      },
+      {
+        "name": "settle_payout_v3_safe_v2_routed",
+        "accounts": [
+          "config",
+          "keeper",
+          "user",
+          "pool",
+          "payoutMint",
+          "ticket",
+          "systemProgram",
+          "rent"
+        ],
+        "args": [
+          {
+            "name": "nonce",
+            "type": "u64"
+          },
+          {
+            "name": "payoutKind",
+            "type": "u8"
+          },
+          {
+            "name": "mintIn",
+            "type": "publicKey"
+          },
+          {
+            "name": "amountIn",
+            "type": "u64"
+          },
+          {
+            "name": "usdMicros",
+            "type": "u64"
+          },
+          {
+            "name": "routeHint",
+            "type": "u8"
+          }
+        ]
+      },
+      {
+        "name": "create_claim_from_ticket",
+        "accounts": [
+          "config",
+          "keeper",
+          "user",
+          "pool",
+          "ticket",
+          "payoutMint",
+          "claim",
+          "systemProgram",
+          "rent"
+        ],
+        "args": [
+          {
+            "name": "nonce",
+            "type": "u64"
+          }
+        ]
+      },
+      {
+        "name": "confirm_ticket_live_escrow_funding",
+        "accounts": [
+          "config",
+          "keeper",
+          "user",
+          "pool",
+          "ticket",
+          "sourceEscrowAta"
+        ],
+        "args": [
+          {
+            "name": "nonce",
+            "type": "u64"
+          }
+        ]
+      },
+      {
+        "name": "confirm_claim_live_escrow_funding",
+        "accounts": [
+          "config",
+          "keeper",
+          "user",
+          "pool",
+          "claim",
+          "sourceEscrowAta"
+        ],
+        "args": [
+          {
+            "name": "nonce",
+            "type": "u64"
+          }
+        ]
+      },
+      {
+        "name": "confirm_protocol_debt_lot_live_escrow_funding",
+        "accounts": [
+          "config",
+          "keeper",
+          "pool",
+          "protocolDebtLedger",
+          "sourceEscrowAta"
+        ],
+        "args": [
+          {
+            "name": "nonce",
+            "type": "u64"
+          }
+        ]
+      },
+      {
+        "name": "settle_claim_paid",
+        "accounts": [
+          "config",
+          "keeper",
+          "user",
+          "pool",
+          "claim"
+        ],
+        "args": [
+          {
+            "name": "nonce",
+            "type": "u64"
+          },
+          {
+            "name": "paidAtoms",
+            "type": "u64"
+          },
+          {
+            "name": "proofSig",
+            "type": {
+              "array": [
+                "u8",
+                64
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "settle_protocol_fee_debt",
+        "accounts": [
+          "config",
+          "keeper",
+          "pool",
+          "protocolDebtLedger"
+        ],
+        "args": [
+          {
+            "name": "paidUsdMicros",
+            "type": "u64"
+          },
+          {
+            "name": "proofSig",
+            "type": {
+              "array": [
+                "u8",
+                64
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "init_protocol_debt_ledger",
+        "accounts": [
+          "config",
+          "admin",
+          "pool",
+          "protocolDebtLedger",
+          "systemProgram"
+        ],
+        "args": []
+      },
+      {
+        "name": "materialize_protocol_fee_debt_lot_to_ticket",
+        "accounts": [
+          "config",
+          "keeper",
+          "user",
+          "pool",
+          "payoutMint",
+          "ticket",
+          "systemProgram",
+          "rent"
+        ],
+        "args": [
+          {
+            "name": "nonce",
+            "type": "u64"
+          }
+        ]
+      },
+      {
+        "name": "set_params",
+        "accounts": [
+          "config",
+          "admin"
+        ],
+        "args": [
+          {
+            "name": "cashbackBps",
+            "type": "u16"
+          },
+          {
+            "name": "rewardInterval",
+            "type": "u64"
+          },
+          {
+            "name": "allowFallbackUsdt",
+            "type": "bool"
+          },
+          {
+            "name": "feeThresholdUsdMicros",
+            "type": "u64"
+          },
+          {
+            "name": "autoCollectEverySwaps",
+            "type": "u64"
+          }
+        ]
+      },
+      {
+        "name": "set_native_sol_rail",
+        "accounts": [
+          "config",
+          "admin"
+        ],
+        "args": [
+          {
+            "name": "enabled",
+            "type": "bool"
+          },
+          {
+            "name": "nativeSolUsdMicrosPerSol",
+            "type": "u64"
+          },
+          {
+            "name": "nativeSolMinReserveLamports",
+            "type": "u64"
+          }
+        ]
+      },
+      {
+        "name": "set_valuation",
+        "accounts": [
+          "config",
+          "admin"
+        ],
+        "args": [
+          {
+            "name": "tokenValueUsdMicrosDefault",
+            "type": "u64"
+          },
+          {
+            "name": "treasuryValueUsdMicros",
+            "type": "u64"
+          }
+        ]
+      },
+      {
+        "name": "set_mint_enabled",
+        "accounts": [
+          "config",
+          "admin"
+        ],
+        "args": [
+          {
+            "name": "mint",
+            "type": "publicKey"
+          },
+          {
+            "name": "enabled",
+            "type": "bool"
+          }
+        ]
+      },
+      {
+        "name": "set_live_runtime_config_v2",
+        "accounts": [
+          "config",
+          "admin"
+        ],
+        "args": [
+          {
+            "name": "keeperAuthority",
+            "type": "publicKey"
+          },
+          {
+            "name": "mainWallet",
+            "type": "publicKey"
+          },
+          {
+            "name": "okxWallet",
+            "type": "publicKey"
+          },
+          {
+            "name": "usdcMint",
+            "type": "publicKey"
+          },
+          {
+            "name": "usdtMint",
+            "type": "publicKey"
+          },
+          {
+            "name": "treasuryUsdcAta",
+            "type": "publicKey"
+          },
+          {
+            "name": "treasuryUsdtAta",
+            "type": "publicKey"
+          },
+          {
+            "name": "usdcCoffre",
+            "type": "publicKey"
+          },
+          {
+            "name": "usdtCoffre",
+            "type": "publicKey"
+          },
+          {
+            "name": "pdaGt",
+            "type": "publicKey"
+          },
+          {
+            "name": "coffre7q",
+            "type": "publicKey"
+          },
+          {
+            "name": "poolId",
+            "type": "publicKey"
+          },
+          {
+            "name": "allowFallbackUsdt",
+            "type": "bool"
+          },
+          {
+            "name": "autoCollectEverySwaps",
+            "type": "u64"
+          },
+          {
+            "name": "feeThresholdUsdMicros",
+            "type": "u64"
+          },
+          {
+            "name": "payoutThresholdUsdMicros",
+            "type": "u64"
+          },
+          {
+            "name": "maxPayoutUsdMicros",
+            "type": "u64"
+          },
+          {
+            "name": "maxPayoutPerWindowUsdMicros",
+            "type": "u64"
+          },
+          {
+            "name": "payoutWindowSecs",
+            "type": "u64"
+          },
+          {
+            "name": "lpCashbackBps",
+            "type": "u16"
+          },
+          {
+            "name": "claimCashbackBps",
+            "type": "u16"
+          }
+        ]
+      },
+      {
+        "name": "set_extra_payout_rail_v2",
+        "accounts": [
+          "config",
+          "admin"
+        ],
+        "args": [
+          {
+            "name": "railIndex",
+            "type": "u8"
+          },
+          {
+            "name": "payoutMint",
+            "type": "publicKey"
+          },
+          {
+            "name": "payoutVaultAta",
+            "type": "publicKey"
+          }
+        ]
+      },
+      {
+        "name": "backfill_pool_registry_entry",
+        "accounts": [
+          "config",
+          "admin",
+          "pool",
+          "poolRegistryEntry",
+          "systemProgram"
+        ],
+        "args": []
+      },
+      {
+        "name": "init_value_registry",
+        "accounts": [
+          "config",
+          "admin",
+          "mint",
+          "valueRegistry",
+          "systemProgram"
+        ],
+        "args": [
+          {
+            "name": "valueUsdMicros",
+            "type": "u64"
+          }
+        ]
+      },
+      {
+        "name": "set_token_value",
+        "accounts": [
+          "config",
+          "admin",
+          "mint",
+          "valueRegistry"
+        ],
+        "args": [
+          {
+            "name": "valueUsdMicros",
+            "type": "u64"
+          }
+        ]
+      },
+      {
+        "name": "create_pool",
+        "accounts": [
+          "config",
+          "admin",
+          "baseMint",
+          "quoteMint",
+          "baseValueRegistry",
+          "quoteValueRegistry",
+          "pool",
+          "poolRegistryEntry",
+          "systemProgram"
+        ],
+        "args": []
+      },
+      {
+        "name": "init_pool_base_vault",
+        "accounts": [
+          "config",
+          "admin",
+          "pool",
+          "poolRegistryEntry",
+          "baseMint",
+          "baseVault",
+          "systemProgram",
+          "tokenProgram",
+          "rent"
+        ],
+        "args": []
+      },
+      {
+        "name": "init_pool_quote_vault",
+        "accounts": [
+          "config",
+          "admin",
+          "pool",
+          "poolRegistryEntry",
+          "quoteMint",
+          "quoteVault",
+          "systemProgram",
+          "tokenProgram",
+          "rent"
+        ],
+        "args": []
+      },
+      {
+        "name": "init_pool_lp_mint",
+        "accounts": [
+          "config",
+          "admin",
+          "pool",
+          "poolRegistryEntry",
+          "lpMint",
+          "systemProgram",
+          "tokenProgram",
+          "rent"
+        ],
+        "args": []
+      },
+      {
+        "name": "init_pool_fee_vault_base",
+        "accounts": [
+          "config",
+          "admin",
+          "pool",
+          "poolRegistryEntry",
+          "baseMint",
+          "feeVaultBase",
+          "systemProgram",
+          "tokenProgram",
+          "rent"
+        ],
+        "args": []
+      },
+      {
+        "name": "init_pool_fee_vault_quote",
+        "accounts": [
+          "config",
+          "admin",
+          "pool",
+          "poolRegistryEntry",
+          "quoteMint",
+          "feeVaultQuote",
+          "systemProgram",
+          "tokenProgram",
+          "rent"
+        ],
+        "args": []
+      },
+      {
+        "name": "register_asset",
+        "accounts": [
+          "config",
+          "admin",
+          "tokenMint",
+          "assetRegistry",
+          "systemProgram"
+        ],
+        "args": [
+          {
+            "name": "valuationUsdMicros",
+            "type": "u64"
+          },
+          {
+            "name": "isLp",
+            "type": "bool"
+          }
+        ]
+      },
+      {
+        "name": "add_liquidity",
+        "accounts": [
+          "config",
+          "user",
+          "pool",
+          "userBaseAta",
+          "userQuoteAta",
+          "userLpAta",
+          "baseVault",
+          "quoteVault",
+          "lpMint",
+          "tokenProgram"
+        ],
+        "args": [
+          {
+            "name": "baseAmountIn",
+            "type": "u64"
+          },
+          {
+            "name": "quoteAmountIn",
+            "type": "u64"
+          },
+          {
+            "name": "minLpOut",
+            "type": "u64"
+          }
+        ]
+      },
+      {
+        "name": "remove_liquidity",
+        "accounts": [
+          "config",
+          "user",
+          "pool",
+          "userBaseAta",
+          "userQuoteAta",
+          "userLpAta",
+          "baseVault",
+          "quoteVault",
+          "lpMint",
+          "tokenProgram"
+        ],
+        "args": [
+          {
+            "name": "lpAmountIn",
+            "type": "u64"
+          },
+          {
+            "name": "minBaseOut",
+            "type": "u64"
+          },
+          {
+            "name": "minQuoteOut",
+            "type": "u64"
+          }
+        ]
+      },
+      {
+        "name": "collect_fees_stable_to_treasury",
+        "accounts": [
+          "config",
+          "admin",
+          "pool",
+          "feeVaultBase",
+          "feeVaultQuote",
+          "treasuryUsdcAta",
+          "treasuryUsdtAta",
+          "tokenProgram"
+        ],
+        "args": []
+      },
+      {
+        "name": "convert_fees_to_usdc",
+        "accounts": [
+          "config",
+          "admin",
+          "pool",
+          "feeVaultBase",
+          "feeVaultQuote",
+          "feeMint",
+          "assetRegistry",
+          "usdcCoffreAta",
+          "treasuryUsdcAta",
+          "tokenProgram"
+        ],
+        "args": []
+      },
+      {
+        "name": "swap_base_for_quote",
+        "accounts": [
+          "config",
+          "user",
+          "pool",
+          "userBaseAta",
+          "userQuoteAta",
+          "baseVault",
+          "quoteVault",
+          "feeVaultBase",
+          "baseMint",
+          "baseValueRegistry",
+          "baseAssetRegistry",
+          "usdcCoffreAta",
+          "treasuryUsdcAta",
+          "usdtCoffreAta",
+          "treasuryUsdtAta",
+          "protocolDebtLedger",
+          "tokenProgram"
+        ],
+        "args": [
+          {
+            "name": "amountIn",
+            "type": "u64"
+          },
+          {
+            "name": "minOut",
+            "type": "u64"
+          }
+        ]
+      },
+      {
+        "name": "swap_quote_for_base",
+        "accounts": [
+          "config",
+          "user",
+          "pool",
+          "userQuoteAta",
+          "userBaseAta",
+          "quoteVault",
+          "baseVault",
+          "feeVaultQuote",
+          "quoteMint",
+          "quoteValueRegistry",
+          "quoteAssetRegistry",
+          "usdcCoffreAta",
+          "treasuryUsdcAta",
+          "usdtCoffreAta",
+          "treasuryUsdtAta",
+          "protocolDebtLedger",
+          "tokenProgram"
+        ],
+        "args": [
+          {
+            "name": "amountIn",
+            "type": "u64"
+          },
+          {
+            "name": "minOut",
+            "type": "u64"
+          }
+        ]
+      },
+      {
+        "name": "init_stake_vault",
+        "accounts": [
+          "config",
+          "admin",
+          "mint",
+          "stakeVault",
+          "systemProgram",
+          "tokenProgram",
+          "rent"
+        ],
+        "args": []
+      },
+      {
+        "name": "init_reward_vault",
+        "accounts": [
+          "config",
+          "admin",
+          "mint",
+          "rewardVault",
+          "systemProgram",
+          "tokenProgram",
+          "rent"
+        ],
+        "args": []
+      },
+      {
+        "name": "stake",
+        "accounts": [
+          "config",
+          "user",
+          "stakeMint",
+          "payoutMint",
+          "userStakeAta",
+          "stakeVault",
+          "position",
+          "systemProgram",
+          "tokenProgram"
+        ],
+        "args": [
+          {
+            "name": "amount",
+            "type": "u64"
+          }
+        ]
+      },
+      {
+        "name": "claim",
+        "accounts": [
+          "config",
+          "user",
+          "stakeMint",
+          "payoutMint",
+          "position",
+          "rewardVault",
+          "userPayoutAta",
+          "usdcCoffreVault",
+          "usdtMainMint",
+          "userUsdtMainAta",
+          "usdtCoffreVault",
+          "tokenProgram"
+        ],
+        "args": []
+      },
+      {
+        "name": "unstake",
+        "accounts": [
+          "config",
+          "user",
+          "stakeMint",
+          "payoutMint",
+          "position",
+          "userStakeAta",
+          "stakeVault",
+          "tokenProgram"
+        ],
+        "args": [
+          {
+            "name": "amount",
+            "type": "u64"
+          }
+        ]
+      },
+      {
+        "name": "migrate_config_v1_to_v2",
+        "accounts": [
+          "config",
+          "admin",
+          "systemProgram"
+        ],
+        "args": []
+      },
+      {
+        "name": "migrate_pool_v1_to_v2",
+        "accounts": [
+          "config",
+          "admin",
+          "baseMint",
+          "quoteMint",
+          "pool",
+          "systemProgram"
+        ],
+        "args": []
+      },
+      {
+        "name": "migrate_payout_ticket_v1_to_v2",
+        "accounts": [
+          "config",
+          "admin",
+          "user",
+          "pool",
+          "ticket",
+          "systemProgram"
+        ],
+        "args": [
+          {
+            "name": "nonce",
+            "type": "u64"
+          }
+        ]
+      },
+      {
+        "name": "migrate_settlement_claim_v1_to_v2",
+        "accounts": [
+          "config",
+          "admin",
+          "user",
+          "pool",
+          "claim",
+          "systemProgram"
+        ],
+        "args": [
+          {
+            "name": "nonce",
+            "type": "u64"
+          }
+        ]
+      },
+      {
+        "name": "migrate_protocol_debt_ledger_v1_to_v2",
+        "accounts": [
+          "config",
+          "admin",
+          "pool",
+          "protocolDebtLedger",
+          "systemProgram"
+        ],
+        "args": []
+      }
+    ],
+    "events": [
+      {
+        "name": "FeeThresholdEvent",
+        "fields": [
+          {
+            "name": "pool",
+            "type": "publicKey",
+            "index": false
+          },
+          {
+            "name": "feeVault",
+            "type": "publicKey",
+            "index": false
+          },
+          {
+            "name": "feeAmount",
+            "type": "u64",
+            "index": false
+          },
+          {
+            "name": "feeValueUsdMicros",
+            "type": "u64",
+            "index": false
+          },
+          {
+            "name": "ts",
+            "type": "i64",
+            "index": false
+          }
+        ]
+      },
+      {
+        "name": "PoolCreated",
+        "fields": [
+          {
+            "name": "pool",
+            "type": "publicKey",
+            "index": false
+          },
+          {
+            "name": "owner",
+            "type": "publicKey",
+            "index": false
+          },
+          {
+            "name": "baseMint",
+            "type": "publicKey",
+            "index": false
+          },
+          {
+            "name": "quoteMint",
+            "type": "publicKey",
+            "index": false
+          },
+          {
+            "name": "ts",
+            "type": "i64",
+            "index": false
+          }
+        ]
+      },
+      {
+        "name": "PoolRuntimeAddressSet",
+        "fields": [
+          {
+            "name": "pool",
+            "type": "publicKey",
+            "index": false
+          },
+          {
+            "name": "role",
+            "type": "u8",
+            "index": false
+          },
+          {
+            "name": "mint",
+            "type": "publicKey",
+            "index": false
+          },
+          {
+            "name": "account",
+            "type": "publicKey",
+            "index": false
+          },
+          {
+            "name": "ts",
+            "type": "i64",
+            "index": false
+          }
+        ]
+      },
+      {
+        "name": "LiquidityAdded",
+        "fields": [
+          {
+            "name": "pool",
+            "type": "publicKey",
+            "index": false
+          },
+          {
+            "name": "user",
+            "type": "publicKey",
+            "index": false
+          },
+          {
+            "name": "baseMint",
+            "type": "publicKey",
+            "index": false
+          },
+          {
+            "name": "quoteMint",
+            "type": "publicKey",
+            "index": false
+          },
+          {
+            "name": "baseAmountIn",
+            "type": "u64",
+            "index": false
+          },
+          {
+            "name": "quoteAmountIn",
+            "type": "u64",
+            "index": false
+          },
+          {
+            "name": "lpAmountOut",
+            "type": "u64",
+            "index": false
+          },
+          {
+            "name": "ts",
+            "type": "i64",
+            "index": false
+          }
+        ]
+      },
+      {
+        "name": "LiquidityRemoved",
+        "fields": [
+          {
+            "name": "pool",
+            "type": "publicKey",
+            "index": false
+          },
+          {
+            "name": "user",
+            "type": "publicKey",
+            "index": false
+          },
+          {
+            "name": "baseMint",
+            "type": "publicKey",
+            "index": false
+          },
+          {
+            "name": "quoteMint",
+            "type": "publicKey",
+            "index": false
+          },
+          {
+            "name": "lpAmountIn",
+            "type": "u64",
+            "index": false
+          },
+          {
+            "name": "baseAmountOut",
+            "type": "u64",
+            "index": false
+          },
+          {
+            "name": "quoteAmountOut",
+            "type": "u64",
+            "index": false
+          },
+          {
+            "name": "ts",
+            "type": "i64",
+            "index": false
+          }
+        ]
+      },
+      {
+        "name": "SwapExecuted",
+        "fields": [
+          {
+            "name": "pool",
+            "type": "publicKey",
+            "index": false
+          },
+          {
+            "name": "user",
+            "type": "publicKey",
+            "index": false
+          },
+          {
+            "name": "side",
+            "type": {
+              "defined": "FeeSide"
+            },
+            "index": false
+          },
+          {
+            "name": "mintIn",
+            "type": "publicKey",
+            "index": false
+          },
+          {
+            "name": "amountIn",
+            "type": "u64",
+            "index": false
+          },
+          {
+            "name": "mintOut",
+            "type": "publicKey",
+            "index": false
+          },
+          {
+            "name": "amountOut",
+            "type": "u64",
+            "index": false
+          },
+          {
+            "name": "feeAmount",
+            "type": "u64",
+            "index": false
+          },
+          {
+            "name": "feeValueUsdMicros",
+            "type": "u64",
+            "index": false
+          },
+          {
+            "name": "ts",
+            "type": "i64",
+            "index": false
+          }
+        ]
+      },
+      {
+        "name": "FeeCollectedToTreasuryEvent",
+        "fields": [
+          {
+            "name": "pool",
+            "type": "publicKey",
+            "index": false
+          },
+          {
+            "name": "feeVault",
+            "type": "publicKey",
+            "index": false
+          },
+          {
+            "name": "mint",
+            "type": "publicKey",
+            "index": false
+          },
+          {
+            "name": "amount",
+            "type": "u64",
+            "index": false
+          },
+          {
+            "name": "treasuryAta",
+            "type": "publicKey",
+            "index": false
+          },
+          {
+            "name": "ts",
+            "type": "i64",
+            "index": false
+          }
+        ]
+      },
+      {
+        "name": "FeeConvertedToUsdcEvent",
+        "fields": [
+          {
+            "name": "pool",
+            "type": "publicKey",
+            "index": false
+          },
+          {
+            "name": "burnedMint",
+            "type": "publicKey",
+            "index": false
+          },
+          {
+            "name": "burnedAmount",
+            "type": "u64",
+            "index": false
+          },
+          {
+            "name": "usdcReleased",
+            "type": "u64",
+            "index": false
+          },
+          {
+            "name": "usdcCoffre",
+            "type": "publicKey",
+            "index": false
+          },
+          {
+            "name": "treasuryUsdcAta",
+            "type": "publicKey",
+            "index": false
+          },
+          {
+            "name": "ts",
+            "type": "i64",
+            "index": false
+          }
+        ]
+      },
+      {
+        "name": "FeeConvertedToStableEvent",
+        "fields": [
+          {
+            "name": "pool",
+            "type": "publicKey",
+            "index": false
+          },
+          {
+            "name": "burnedMint",
+            "type": "publicKey",
+            "index": false
+          },
+          {
+            "name": "burnedAmount",
+            "type": "u64",
+            "index": false
+          },
+          {
+            "name": "stableMint",
+            "type": "publicKey",
+            "index": false
+          },
+          {
+            "name": "stableReleased",
+            "type": "u64",
+            "index": false
+          },
+          {
+            "name": "stableCoffre",
+            "type": "publicKey",
+            "index": false
+          },
+          {
+            "name": "treasuryStableAta",
+            "type": "publicKey",
+            "index": false
+          },
+          {
+            "name": "ts",
+            "type": "i64",
+            "index": false
+          }
+        ]
+      },
+      {
+        "name": "FeeRetainedInVaultEvent",
+        "fields": [
+          {
+            "name": "pool",
+            "type": "publicKey",
+            "index": false
+          },
+          {
+            "name": "feeVault",
+            "type": "publicKey",
+            "index": false
+          },
+          {
+            "name": "mint",
+            "type": "publicKey",
+            "index": false
+          },
+          {
+            "name": "amount",
+            "type": "u64",
+            "index": false
+          },
+          {
+            "name": "valueUsdMicros",
+            "type": "u64",
+            "index": false
+          },
+          {
+            "name": "ts",
+            "type": "i64",
+            "index": false
+          }
+        ]
+      },
+      {
+        "name": "SovereignOutputExecuted",
+        "fields": [
+          {
+            "name": "sourceKind",
+            "type": "u8",
+            "index": false
+          },
+          {
+            "name": "sourceMint",
+            "type": "publicKey",
+            "index": false
+          },
+          {
+            "name": "amountIn",
+            "type": "u64",
+            "index": false
+          },
+          {
+            "name": "payoutMint",
+            "type": "publicKey",
+            "index": false
+          },
+          {
+            "name": "payoutAmount",
+            "type": "u64",
+            "index": false
+          },
+          {
+            "name": "destinationAta",
+            "type": "publicKey",
+            "index": false
+          },
+          {
+            "name": "user",
+            "type": "publicKey",
+            "index": false
+          },
+          {
+            "name": "ts",
+            "type": "i64",
+            "index": false
+          }
+        ]
+      },
+      {
+        "name": "PoolRegistered",
+        "fields": [
+          {
+            "name": "pool",
+            "type": "publicKey",
+            "index": false
+          },
+          {
+            "name": "baseMint",
+            "type": "publicKey",
+            "index": false
+          },
+          {
+            "name": "quoteMint",
+            "type": "publicKey",
+            "index": false
+          },
+          {
+            "name": "lpMint",
+            "type": "publicKey",
+            "index": false
+          },
+          {
+            "name": "ts",
+            "type": "i64",
+            "index": false
+          }
+        ]
+      },
+      {
+        "name": "ProtocolFeeDebtEvent",
+        "fields": [
+          {
+            "name": "pool",
+            "type": "publicKey",
+            "index": false
+          },
+          {
+            "name": "payoutMint",
+            "type": "publicKey",
+            "index": false
+          },
+          {
+            "name": "payoutKind",
+            "type": "u8",
+            "index": false
+          },
+          {
+            "name": "beneficiary",
+            "type": "publicKey",
+            "index": false
+          },
+          {
+            "name": "mintIn",
+            "type": "publicKey",
+            "index": false
+          },
+          {
+            "name": "amountIn",
+            "type": "u64",
+            "index": false
+          },
+          {
+            "name": "usdMicros",
+            "type": "u64",
+            "index": false
+          },
+          {
+            "name": "totalUsdMicros",
+            "type": "u64",
+            "index": false
+          },
+          {
+            "name": "destinationAta",
+            "type": "publicKey",
+            "index": false
+          },
+          {
+            "name": "nonce",
+            "type": "u64",
+            "index": false
+          },
+          {
+            "name": "routeHint",
+            "type": "u8",
+            "index": false
+          },
+          {
+            "name": "ts",
+            "type": "i64",
+            "index": false
+          }
+        ]
+      },
+      {
+        "name": "ProtocolFeeDebtSettledEvent",
+        "fields": [
+          {
+            "name": "pool",
+            "type": "publicKey",
+            "index": false
+          },
+          {
+            "name": "paidUsdMicros",
+            "type": "u64",
+            "index": false
+          },
+          {
+            "name": "remainingUsdMicros",
+            "type": "u64",
+            "index": false
+          },
+          {
+            "name": "proofSig",
+            "type": {
+              "array": [
+                "u8",
+                64
+              ]
+            },
+            "index": false
+          },
+          {
+            "name": "ts",
+            "type": "i64",
+            "index": false
+          }
+        ]
+      },
+      {
+        "name": "NeedPayoutEvent",
+        "fields": [
+          {
+            "name": "pool",
+            "type": "publicKey",
+            "index": false
+          },
+          {
+            "name": "payoutMint",
+            "type": "publicKey",
+            "index": false
+          },
+          {
+            "name": "payoutKind",
+            "type": "u8",
+            "index": false
+          },
+          {
+            "name": "user",
+            "type": "publicKey",
+            "index": false
+          },
+          {
+            "name": "mintIn",
+            "type": "publicKey",
+            "index": false
+          },
+          {
+            "name": "amountIn",
+            "type": "u64",
+            "index": false
+          },
+          {
+            "name": "usdMicros",
+            "type": "u64",
+            "index": false
+          },
+          {
+            "name": "destinationAta",
+            "type": "publicKey",
+            "index": false
+          },
+          {
+            "name": "nonce",
+            "type": "u64",
+            "index": false
+          },
+          {
+            "name": "liquidityPolicy",
+            "type": "u8",
+            "index": false
+          },
+          {
+            "name": "routeHint",
+            "type": "u8",
+            "index": false
+          },
+          {
+            "name": "ts",
+            "type": "i64",
+            "index": false
+          }
+        ]
+      },
+      {
+        "name": "HtopReserveMaterializedEvent",
+        "fields": [
+          {
+            "name": "sourceMint",
+            "type": "publicKey",
+            "index": false
+          },
+          {
+            "name": "sourceAccount",
+            "type": "publicKey",
+            "index": false
+          },
+          {
+            "name": "destinationHtopReserve",
+            "type": "publicKey",
+            "index": false
+          },
+          {
+            "name": "amountAtoms",
+            "type": "u64",
+            "index": false
+          },
+          {
+            "name": "usdMicros",
+            "type": "u64",
+            "index": false
+          },
+          {
+            "name": "ts",
+            "type": "i64",
+            "index": false
+          }
+        ]
+      },
+      {
+        "name": "ClaimCreatedEvent",
+        "fields": [
+          {
+            "name": "pool",
+            "type": "publicKey",
+            "index": false
+          },
+          {
+            "name": "payoutMint",
+            "type": "publicKey",
+            "index": false
+          },
+          {
+            "name": "payoutKind",
+            "type": "u8",
+            "index": false
+          },
+          {
+            "name": "user",
+            "type": "publicKey",
+            "index": false
+          },
+          {
+            "name": "usdMicros",
+            "type": "u64",
+            "index": false
+          },
+          {
+            "name": "destinationAta",
+            "type": "publicKey",
+            "index": false
+          },
+          {
+            "name": "nonce",
+            "type": "u64",
+            "index": false
+          },
+          {
+            "name": "ts",
+            "type": "i64",
+            "index": false
+          }
+        ]
+      },
+      {
+        "name": "ClaimPaidEvent",
+        "fields": [
+          {
+            "name": "pool",
+            "type": "publicKey",
+            "index": false
+          },
+          {
+            "name": "payoutMint",
+            "type": "publicKey",
+            "index": false
+          },
+          {
+            "name": "user",
+            "type": "publicKey",
+            "index": false
+          },
+          {
+            "name": "usdMicros",
+            "type": "u64",
+            "index": false
+          },
+          {
+            "name": "paidAtoms",
+            "type": "u64",
+            "index": false
+          },
+          {
+            "name": "proofSig",
+            "type": {
+              "array": [
+                "u8",
+                64
+              ]
+            },
+            "index": false
+          },
+          {
+            "name": "destinationAta",
+            "type": "publicKey",
+            "index": false
+          },
+          {
+            "name": "nonce",
+            "type": "u64",
+            "index": false
+          },
+          {
+            "name": "ts",
+            "type": "i64",
+            "index": false
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -1,14 +1,14 @@
 {
   "ok": true,
   "protocolId": "sterlingdex",
-  "generatedAt": "2026-03-15T08:24:25.707Z",
+  "generatedAt": "2026-04-15T01:05:05.364Z",
   "pairs": [
     {
       "pairId": "STM-SJBCUSD",
       "protocolId": "sterlingdex",
       "protocolName": "SterlingDEX",
       "surfaceType": "STERLING_COMPAT_PAIR",
-      "isDexPair": false,
+      "isDexPair": true,
       "programId": "7v9sLrk92NNLLUfXLJw3o7MycZNvwsTK6kLWfWb8vcVA",
       "poolId": "BbvR4zUAwZF8LmVFLXNpDy3CxuYcDwd5isoh7CZFAF5G",
       "configPda": "Htopqis52g8nGvvkpnG7Z7XZhgBpqtN9huqUyk6LH9gB",
@@ -26,6 +26,31 @@
       "target": "USDC",
       "strategy": "PRIVATE_POOL",
       "valueUsd": 1,
+      "stableValueSymbol": "USD",
+      "stableValueUsd": 1,
+      "stableValueModel": {
+        "stableValueSymbol": "USD",
+        "stableValueUsd": 1,
+        "settlementMint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+        "settlementSymbol": "USDC",
+        "supportedPayoutSymbols": [
+          "USDC",
+          "USDT",
+          "SOL"
+        ],
+        "quoteAssetSymbol": "SJBC",
+        "quoteAssetRole": "USD_VALUE_BRIDGE_ASSET",
+        "meaning": "La pool on-chain reste STM/SJBC. Le USD ici designe la couche de valeur/stable settlement exposee publiquement, avec USDC comme mint canonique de sortie."
+      },
+      "sovereignBackingSummary": {
+        "totalUsd": 2000000000,
+        "totalUsdCompact": "2.0000B",
+        "reserveCount": 2
+      },
+      "payableTicketSummary": {
+        "ticketCount": 1500,
+        "remainingUsd": 750000000
+      },
       "lpMint": "DnepvMafJZzDtDcevrqbMUCmDqdNhBLjCTUu1xhR4HeL",
       "metadataURI": "https://white-persistent-silkworm-971.mypinata.cloud/ipfs/bafkreigieiayj3zwzgfjvgcsrkagzykiqo3obe6o556v25mrsnwjyc5hkq",
       "routing": {

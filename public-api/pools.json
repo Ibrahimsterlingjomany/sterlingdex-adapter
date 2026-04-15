@@ -1,49 +1,15 @@
 {
   "ok": true,
   "protocolId": "sterlingdex",
-  "generatedAt": "2026-03-15T08:24:25.707Z",
+  "generatedAt": "2026-04-15T01:05:05.364Z",
   "pools": [
-    {
-      "poolId": "6FVgFKkbi4yrNTw6kJjuRt5B7JGj9yk3VEmwoeqWQZXa",
-      "programId": "7v9sLrk92NNLLUfXLJw3o7MycZNvwsTK6kLWfWb8vcVA",
-      "configPda": "Htopqis52g8nGvvkpnG7Z7XZhgBpqtN9huqUyk6LH9gB",
-      "authority": "CMqD45Kq5oukPvaMDhzav5RxJqZb1xME1MmV71CzCeTw",
-      "surfaceType": "SETTLEMENT_BRIDGE",
-      "isPublicDexPool": false,
-      "sources": [
-        "REPORT_SNAPSHOT"
-      ],
-      "listedMints": [],
-      "listedPairs": [],
-      "listedTargets": [],
-      "lpMint": null,
-      "metrics": null,
-      "notes": "Bridge inventory discovered from snapshots only; target mapping incomplete."
-    },
-    {
-      "poolId": "8NvJEAAaPzB46hcX1fcLLVmea2htNMrNSViQk24bZ7P5",
-      "programId": "7v9sLrk92NNLLUfXLJw3o7MycZNvwsTK6kLWfWb8vcVA",
-      "configPda": "Htopqis52g8nGvvkpnG7Z7XZhgBpqtN9huqUyk6LH9gB",
-      "authority": "CMqD45Kq5oukPvaMDhzav5RxJqZb1xME1MmV71CzCeTw",
-      "surfaceType": "SETTLEMENT_BRIDGE",
-      "isPublicDexPool": false,
-      "sources": [
-        "REPORT_SNAPSHOT"
-      ],
-      "listedMints": [],
-      "listedPairs": [],
-      "listedTargets": [],
-      "lpMint": null,
-      "metrics": null,
-      "notes": "Bridge inventory discovered from snapshots only; target mapping incomplete."
-    },
     {
       "poolId": "BbvR4zUAwZF8LmVFLXNpDy3CxuYcDwd5isoh7CZFAF5G",
       "programId": "7v9sLrk92NNLLUfXLJw3o7MycZNvwsTK6kLWfWb8vcVA",
       "configPda": "Htopqis52g8nGvvkpnG7Z7XZhgBpqtN9huqUyk6LH9gB",
       "authority": "CMqD45Kq5oukPvaMDhzav5RxJqZb1xME1MmV71CzCeTw",
       "surfaceType": "SETTLEMENT_BRIDGE",
-      "isPublicDexPool": false,
+      "isPublicDexPool": true,
       "sources": [
         "REPORT_SNAPSHOT",
         "TOKENLIST",
@@ -61,10 +27,142 @@
         {
           "assetMint": "9kued2JXgVk5dzvtipsTdXfBMWihy1E55TwMiXchCoAb",
           "assetSymbol": "STM",
+          "settlementMint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
           "settlementSymbol": "USDC",
+          "stableValueSymbol": "USD",
+          "valueUsd": 1,
           "routeId": "STM-SJBCUSD"
         }
       ],
+      "settlementMint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+      "settlementSymbol": "USDC",
+      "stableValueSymbol": "USD",
+      "stableValueUsd": 1,
+      "stableValueModel": {
+        "stableValueSymbol": "USD",
+        "stableValueUsd": 1,
+        "settlementMint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+        "settlementSymbol": "USDC",
+        "supportedPayoutSymbols": [
+          "USDC",
+          "USDT",
+          "SOL"
+        ],
+        "quoteAssetSymbol": "SJBC",
+        "quoteAssetRole": "USD_VALUE_BRIDGE_ASSET",
+        "meaning": "La pool on-chain reste STM/SJBC. Le USD ici designe la couche de valeur/stable settlement exposee publiquement, avec USDC comme mint canonique de sortie."
+      },
+      "sovereignBacking": {
+        "schema": "sterling_sovereign_backing_v1",
+        "poolId": "BbvR4zUAwZF8LmVFLXNpDy3CxuYcDwd5isoh7CZFAF5G",
+        "model": "system_stable_value_usd",
+        "stableValueSymbol": "USD",
+        "stableValueUsd": 1,
+        "settlementMint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+        "settlementSymbol": "USDC",
+        "reserveCount": 2,
+        "reserves": [
+          {
+            "reserveRole": "HTOP_STM_RESERVE",
+            "account": "2CRon3SyMyvy2i7hourX99kiuoTKpLgQ3ebogrpfDorq",
+            "mint": "9kued2JXgVk5dzvtipsTdXfBMWihy1E55TwMiXchCoAb",
+            "symbol": "STM",
+            "amountRaw": "999999999999999998",
+            "amountUi": "999999999.999999998",
+            "observedAmountRaw": "999999999999999998",
+            "observedAmountUi": "999999999.999999998",
+            "observedStableValueUsd": 1000000000,
+            "guaranteedAmountUi": "1000000000",
+            "guaranteedStableValueUsd": 1000000000,
+            "stableValueUsd": 1000000000
+          },
+          {
+            "reserveRole": "HTOP_SJBC_RESERVE",
+            "account": "HEy89xU9gkEi9FXGLvzT61i3pM2kTW5MzvqcCDsB7EmQ",
+            "mint": "EsNo61QodqHCRjkTGJDeqyK7N4Hunip5PaTYbpPZEsG2",
+            "symbol": "SJBC",
+            "amountRaw": "999500003163875998",
+            "amountUi": "999500003.163875998",
+            "observedAmountRaw": "999500003163875998",
+            "observedAmountUi": "999500003.163875998",
+            "observedStableValueUsd": 999500003.163876,
+            "guaranteedAmountUi": "1000000000",
+            "guaranteedStableValueUsd": 1000000000,
+            "stableValueUsd": 1000000000
+          }
+        ],
+        "totalUsd": 2000000000,
+        "totalUsdMicros": "2000000000000000",
+        "totalUsdCompact": "2.0000B",
+        "declaredGuaranteeUsd": 2000000000,
+        "declaredGuaranteeUsdMicros": "2000000000000000",
+        "declaredGuaranteeUsdCompact": "2.0000B",
+        "observedLiveTotalUsd": 1999500003.163876,
+        "observedLiveTotalUsdMicros": "1999500003163876",
+        "observedLiveTotalUsdCompact": "1.9995B",
+        "payoutVaults": {
+          "usdc": "7vWLrATXnuGTCjmexa7b4roo9Em6VMKr3bdDemJNHNk1",
+          "usdt": "GTAs9L3XFdhHEFoo6KWNbFFxMCFRnbVomsbx7deShkLb",
+          "treasuryUsdcAta": "2NUyY9XfzZ6dHZwRtQMt5oBHhZLNdwTBKwVbjrPwEDGN"
+        },
+        "sources": [
+          "live_solana_rpc",
+          "treasury_transfer_proofs"
+        ],
+        "note": "La garantie publique declaree suit le modele Sterling USD=1 avec 1 milliard STM + 1 milliard SJBC. Les soldes live observes restent exposes a part et peuvent varier sans changer la garantie nominale du systeme."
+      },
+      "historicalFees": {
+        "schema": "sterling_fee_snapshot_v1",
+        "period": "2025-12",
+        "poolId": "BbvR4zUAwZF8LmVFLXNpDy3CxuYcDwd5isoh7CZFAF5G",
+        "swapCount": 1812,
+        "volumeUsdEstimate": 90600000,
+        "feesUsdEstimate": 4530000,
+        "sourceSwapLog": "/Users/ibrahimjomanysterling/Sterling_Bridge_M3/swap_logs/swap_volume_log.BbvR4zUAwZF8LmVFLXNpDy3CxuYcDwd5isoh7CZFAF5G.json",
+        "note": "Ces fees viennent du journal de swaps de decembre 2025 pour la pool canonique BbvR. Elles representent le stock historique gagne, pas un payout deja execute."
+      },
+      "payableTickets": {
+        "schema": "sterling_payable_ticket_batch_v1",
+        "batch": "reconstructed_fee_claims",
+        "destinationAta": "2NUyY9XfzZ6dHZwRtQMt5oBHhZLNdwTBKwVbjrPwEDGN",
+        "rebuiltClaimFamilies": [
+          {
+            "claimId": "BbvR4zUAwZF8LmVFLXNpDy3C_usdc_1c58070ffdbc799991372896",
+            "tickets": 500
+          },
+          {
+            "claimId": "BbvR4zUAwZF8LmVFLXNpDy3C_usdc_34884160c99add9d412ee77e",
+            "tickets": 500
+          },
+          {
+            "claimId": "BbvR4zUAwZF8LmVFLXNpDy3C_usdc_fa7b66f5339e18d5edf1c399",
+            "tickets": 500
+          }
+        ],
+        "rebuiltClaimFamilyCount": 3,
+        "ticketCount": 1500,
+        "status": "ROUTING",
+        "payableUsd": 750000000,
+        "paidUsd": 0,
+        "remainingUsd": 750000000,
+        "payableUsdMicros": "750000000000000",
+        "remainingUsdMicros": "750000000000000",
+        "note": "Ce lot correspond aux tickets fees reconstruits et rendus payables. Ils sont visibles en ROUTING tant que le payout final souverain n'est pas encore execute."
+      },
+      "claimsAndDebt": {
+        "schema": "sterling_claims_and_debt_v1",
+        "poolId": "BbvR4zUAwZF8LmVFLXNpDy3CxuYcDwd5isoh7CZFAF5G",
+        "protocolDebtLedger": "2Fr4WPEC51CUtDdqArStKMmTEuippeHMHFCH46mjgxQv",
+        "settlementClaimAccounts": 15,
+        "payoutTicketAccounts": 17,
+        "protocolDebtLedgersCount": 10,
+        "treasuryValueUsdMicros": "174000000000",
+        "treasuryUsdcAta": "2NUyY9XfzZ6dHZwRtQMt5oBHhZLNdwTBKwVbjrPwEDGN",
+        "usdcCoffre": "7vWLrATXnuGTCjmexa7b4roo9Em6VMKr3bdDemJNHNk1",
+        "claimFamily": "BbvR4zUAwZF8LmVFLXNpDy3C_usdc_*",
+        "ticketFocus": "BbvR4zUAwZF8LmVFLXNpDy3C_usdc_34884160c99add9d412ee77e_T4",
+        "note": "Ces chiffres rendent visibles la couche claims/tickets/debt du programme sans pretendre qu'un payout final a deja ete execute."
+      },
       "lpMint": "DnepvMafJZzDtDcevrqbMUCmDqdNhBLjCTUu1xhR4HeL",
       "metrics": {
         "lastUpdated": "2025-12-31T18:33:11+00:00",
@@ -72,64 +170,12 @@
         "volumeUsdEstimateTotal": 21000000000,
         "feesUsdEstimateTotal": 1050000000,
         "totalBase": 17445744073.709553,
-        "totalQuote": 17446744073.709553
+        "totalQuote": 17446744073.709553,
+        "sovereignBackingUsd": 2000000000,
+        "payableTicketCount": 1500,
+        "payableRemainingUsd": 750000000
       },
       "notes": "Internal Sterling bridge route resolved from the value registry."
-    },
-    {
-      "poolId": "F6QDJP8hkRY23yQjnV2P8jyaHhC2qGaVb3smwWVQsQyK",
-      "programId": "7v9sLrk92NNLLUfXLJw3o7MycZNvwsTK6kLWfWb8vcVA",
-      "configPda": "Htopqis52g8nGvvkpnG7Z7XZhgBpqtN9huqUyk6LH9gB",
-      "authority": "CMqD45Kq5oukPvaMDhzav5RxJqZb1xME1MmV71CzCeTw",
-      "surfaceType": "SETTLEMENT_BRIDGE",
-      "isPublicDexPool": false,
-      "sources": [
-        "REPORT_SNAPSHOT"
-      ],
-      "listedMints": [],
-      "listedPairs": [],
-      "listedTargets": [],
-      "lpMint": null,
-      "metrics": null,
-      "notes": "Bridge inventory discovered from snapshots only; target mapping incomplete."
-    },
-    {
-      "poolId": "GueLwVCqG18cneMNXCBhxBAabgVQqZYGxkT7UAWPyoCs",
-      "programId": "7v9sLrk92NNLLUfXLJw3o7MycZNvwsTK6kLWfWb8vcVA",
-      "configPda": "Htopqis52g8nGvvkpnG7Z7XZhgBpqtN9huqUyk6LH9gB",
-      "authority": "CMqD45Kq5oukPvaMDhzav5RxJqZb1xME1MmV71CzCeTw",
-      "surfaceType": "SETTLEMENT_BRIDGE",
-      "isPublicDexPool": false,
-      "sources": [
-        "REPORT_SNAPSHOT"
-      ],
-      "listedMints": [],
-      "listedPairs": [],
-      "listedTargets": [],
-      "lpMint": null,
-      "metrics": null,
-      "notes": "Bridge inventory discovered from snapshots only; target mapping incomplete."
-    },
-    {
-      "poolId": "Hj4dwRe2ZbmPasT7412LdhcTANEsXkjuG2eh4uUgUQNq",
-      "programId": "7v9sLrk92NNLLUfXLJw3o7MycZNvwsTK6kLWfWb8vcVA",
-      "configPda": "Htopqis52g8nGvvkpnG7Z7XZhgBpqtN9huqUyk6LH9gB",
-      "authority": "CMqD45Kq5oukPvaMDhzav5RxJqZb1xME1MmV71CzCeTw",
-      "surfaceType": "SETTLEMENT_BRIDGE",
-      "isPublicDexPool": false,
-      "sources": [
-        "REPORT_SNAPSHOT",
-        "TOKENLIST",
-        "VALUE_REGISTRY"
-      ],
-      "listedMints": [
-        "FwCp9JvCxtC88rJNWJSZFcoSUDW8NuSzKKSwt7MPF9of"
-      ],
-      "listedPairs": [],
-      "listedTargets": [],
-      "lpMint": null,
-      "metrics": null,
-      "notes": "Bridge inventory discovered from snapshots only; target mapping incomplete."
     }
   ]
 }
